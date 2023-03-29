@@ -10,8 +10,9 @@
         }
 
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: 'DejaVu Sans', sans-serif;
         }
+
 
         header {
             position: relative;
@@ -37,7 +38,7 @@
     <table style="width:100%;">
         <tr>
             <td style="width:40%;text-align:left;border-style:none;">
-                <img src="{{ public_path('gen-img/Yes-Cargo-logo.png') }}" alt=""
+                <img src="gen-img/Yes-Cargo-Logo.png" alt=""
                      style="display:inline;padding-left:0px;margin-left:0px;" width="300">
             </td>
             <td style="width:60%;text-align:right;border-style:none;">
@@ -234,7 +235,7 @@
     <table style="width:100%; margin-top:10px; margin-bottom:10px;">
         <tbody>
         <tr>
-            <td style="font-size: 13px; border-style:none;text-align:left;">Amount in words:  {{ $amountString }}</td>
+            <td style="font-size: 13px; border-style:none;text-align:left;">Amount in words: <span style="text-transform: uppercase;"> {{ $amountString }} </span> </td>
             <td style="font-size: 13px; border-style:none;text-align:right;">المبلغ بالكلمات</td>
         </tr>
         <tr>
@@ -385,8 +386,7 @@
     <table style="width:100%;">
         <tr>
             <th style="border-style:none;font-size:13px;font-weight:400;text-align:left;font-weight:bold;">Shippers
-                signature <img src="{{ public_path('gen-img/Shippers signature.webp') }}" alt=""
-                               style="display:inline;padding-left:10px;" width="60"></th>
+                signature الشاحن توقيع</th>
             <th style="border-style:none;font-size:13px;font-weight:400;text-align:center;color:#b71c1c;font-weight:bold;">
                 Thanks for your Visit ! Come Again
             </th>

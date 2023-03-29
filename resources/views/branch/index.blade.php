@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header pb-2">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Branch /</span> List</h4>
         @can('branch-create')
         <span class="float-end">
@@ -14,7 +14,7 @@
     
     <div class="table-responsive text-nowrap">
         
-        <table class="table table-striped border-top" style="min-height: 120px;">
+        <table id="example" class="display nowrap" style="width:100%;">
         <thead>
             <tr>
             <th>SR#</th>

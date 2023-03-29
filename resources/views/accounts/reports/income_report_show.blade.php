@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header pb-2">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Income /</span> Report</h4>
         
         <!-- <span class="float-end">
@@ -13,7 +13,7 @@
     </div>
     
 <div class="card-datatable table-responsive">
-    <table class="table border-top">
+    <table id="example" class="display nowrap" style="width:100%;">
     <thead>
         <tr>
        
@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        
+        @php $InvoicesAmountSum = 0 ; @endphp
         @foreach($income as $rec)
         <tr>
             <td>{{ $rec->shipment_mode_slug }}</td>
@@ -50,7 +50,7 @@
                     $VatInPercent = $rec->vat;
                     $vatPercentAmount = ($subTotal / 100) * $rec->vat;
                     $InvoiceAmount = $vatPercentAmount + $subTotal;
-                    //$InvoicesAmountSum += $InvoiceAmount;
+                    $InvoicesAmountSum += $InvoiceAmount;
                    // $InvoicesSum =  $InvoicesSum + $InvoiceAmount;
                 @endphp
                     {{ number_format($InvoiceAmount,2)  }}
@@ -66,7 +66,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="font-bold text-success">{{ 'SAR '. number_format(@$InvoicesAmountSum,2) }}</td>
+            <td class="font-bold text-success">{{ 'SAR '. $InvoicesAmountSum }}</td>
         </tr>
     </tfoot>
     </table>

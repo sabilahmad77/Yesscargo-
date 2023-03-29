@@ -33,6 +33,7 @@ class InvoiceController extends Controller
 
     public function create()
     {
+        //return 123;
         //$data['item'] = Item::all();
         $data['branchId'] = Branch::where('users_id', Auth::user()->id)->first();
         $lastInvoice = Invoice::where('branch_id', $data['branchId']->id)->latest()->first();

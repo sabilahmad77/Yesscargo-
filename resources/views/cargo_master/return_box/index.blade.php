@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header pb-2">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Return Box /</span> List</h4>
         @if( Auth::user()->hasRole('Branch-Admin')  )
         <span class="float-end">
@@ -13,7 +13,7 @@
     </div>
     
 <div class="card-datatable table-responsive">
-    <table class="table border-top">
+    <table id="example" class="display nowrap" style="width:100%;">
     <thead>
         <tr>
         

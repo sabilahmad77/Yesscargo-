@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "aizhar777/numbers-to-words": "^1.0",
         "ar-php/ar-php": "^1.0",
         "barryvdh/laravel-dompdf": "^2.0",
         "elibyy/tcpdf-laravel": "^10.0",

@@ -9,8 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class ShipmentsController extends Controller
 {
     public function allShipmentsList(){
-        $data['InvoicesList']  = Invoice::where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
-        return view('cargo_master.shipments.index')->with($data);
+        if(Auth::user()->hasRole('Admin')){
+            $data['InvoicesList']  = Invoice::orderBy('id', 'DESC')->get();
+            return view('cargo_master.shipments.index')->with($data);
+        }else{
+            $data['InvoicesList']  = Invoice::where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+            return view('cargo_master.shipments.index')->with($data);
+        }
+        
     }
 
     public function shipmentStatusUpdate(Request $request){

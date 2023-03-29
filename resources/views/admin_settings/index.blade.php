@@ -25,7 +25,7 @@
                         
                     </div>
                     <div class="col-12 mb-sm-0 mb-4">
-                        <button type="submit" class="btn btn-primary btn-block mt-3 form-control">Upate</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-3 form-control">Update</button>
                     </div>
                     </div>
                 </form>

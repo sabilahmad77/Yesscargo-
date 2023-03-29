@@ -1,38 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="{{ url('/') }}" class="app-brand-link">
-              <!-- <span class="app-brand-logo demo">
-                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-                    fill="#7367F0"
-                  />
-                  <path
-                    opacity="0.06"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                    fill="#161616"
-                  />
-                  <path
-                    opacity="0.06"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                    fill="#161616"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-                    fill="#7367F0"
-                  />
-                </svg>
-              </span> -->
-              <!-- <span class="app-brand-text demo menu-text fw-bold">Vuexy</span> -->
-              <img src="{{ asset('gen-img/Yes-Cargo-Logo.png') }}" style="width: 100%;">
+             
+              <img src="{{ asset('/gen-img/Yes-Cargo-Logo.png') }}" style="width: 100%;">
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -51,23 +21,7 @@
                 <div data-i18n="Dashboards">Dashboards</div>
                 <!-- <div class="badge bg-label-primary rounded-pill ms-auto">3</div> -->
               </a>
-              <!-- <ul class="menu-sub">
-                <li class="menu-item active">
-                  <a href="index.html" class="menu-link">
-                    <div data-i18n="Analytics">Analytics</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="dashboards-crm.html" class="menu-link">
-                    <div data-i18n="CRM">CRM</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="dashboards-ecommerce.html" class="menu-link">
-                    <div data-i18n="eCommerce">eCommerce</div>
-                  </a>
-                </li>
-              </ul> -->
+            
             </li>
             <li class="menu-item {{Request::is(['clients','clients/*']) ? 'active' : ''}}">
               <a href="{{ url('clients') }}" class="menu-link">
@@ -90,7 +44,7 @@
                   </a>
                 </li>
                 @endcan
-                <li class="menu-item">
+                <li class="menu-item {{Request::is(['branch']) ? 'active' : ''}}">
                   <a href="{{ url('branch') }}" class="menu-link">
                     <div data-i18n="Branch List">Branch List</div>
                   </a>
@@ -102,7 +56,7 @@
            
             
            
-            <li class="menu-item {{Request::is(['accounts','accounts/invoice/*', 'accounts/manifest']) ? 'active open' : ''}}">
+            <li class="menu-item {{Request::is(['accounts','accounts/invoice', 'accounts/invoice/*', 'accounts/manifest', 'accounts/manifest/*', 'accounts/inventory', 'accounts/inventory/*','accounts/reports','accounts/reports/*']) ? 'active open' : ''}}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-file-dollar"></i>
                 <div data-i18n="Accounts">Accounts</div>
@@ -119,17 +73,13 @@
                     <div data-i18n="Manifest">Manifest</div>
                   </a>
                 </li>
-                <!-- <li class="menu-item">
-                  <a href="layouts-content-navbar.html" class="menu-link">
-                    <div data-i18n="Packing List">Packing List</div>
-                  </a>
-                </li> -->
-                <li class="menu-item">
+               
+                <li class="menu-item {{Request::is(['accounts/inventory','accounts/inventory/*']) ? 'active' : ''}}">
                   <a href="{{ url('accounts/inventory') }} " class="menu-link">
                     <div data-i18n="Inventory">Inventory</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{Request::is(['accounts/reports','accounts/reports/*']) ? 'active' : ''}}">
                   <a href="{{ url('accounts/reports') }}" class="menu-link">
                     <div data-i18n="Reports">Reports</div>
                   </a>
@@ -137,7 +87,7 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item {{Request::is(['cargo-master/shipments','cargo-master/shipments/*', 'cargo-master','cargo-master/return-box', 'cargo-master/return-box/*','cargo-master/track-shipment', 'cargo-master/track-shipment/*' ]) ? 'active open' : ''}}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Cargo Master">Cargo Master</div>
@@ -149,17 +99,17 @@
                     <div data-i18n="Loading">Loading</div>
                   </a>
                 </li> -->
-                <li class="menu-item">
+                <li class="menu-item {{Request::is(['cargo-master/return-box','accounts/return-box/*']) ? 'active' : ''}}">
                   <a href="{{ url('cargo-master/return-box') }}" class="menu-link">
                     <div data-i18n="Return Box">Return Box</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{Request::is(['cargo-master/shipments','cargo-master/shipments/*']) ? 'active' : ''}}">
                   <a href="{{ url('cargo-master/shipments') }}" class="menu-link">
                     <div data-i18n="Shipments">Shipments</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{Request::is(['cargo-master/track-shipment']) ? 'active' : ''}}">
                   <a href="{{ url('cargo-master/track-shipment') }}" class="menu-link">
                     <div data-i18n="Track Shipment">Track Shipment</div>
                   </a>
@@ -188,12 +138,12 @@
                 <div data-i18n="Admin Settings">Admin Settings</div>
               </a>
 
-              <ul class="menu-sub">
-                <li class="menu-item {{Request::is(['users','users/*']) ? 'active' : ''}}">
+              <ul class="menu-sub {{Request::is(['users','users/*']) ? 'active' : ''}}">
+                {{--<li class="menu-item {{Request::is(['users','users/*']) ? 'active' : ''}}">
                   <a href="{{ url('users') }}" class="menu-link">
                     <div data-i18n="Users">Users</div>
                   </a>
-                </li>
+                </li>--}}
                 <li class="menu-item {{Request::is(['admin-settings']) ? 'active' : ''}}">
                   <a href="{{ url('admin-settings') }}" class="menu-link">
                     <div data-i18n="Shipment Charges">Shipment Charges</div>

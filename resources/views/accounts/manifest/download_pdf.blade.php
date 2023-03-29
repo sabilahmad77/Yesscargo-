@@ -49,7 +49,7 @@
         <th></th>
         <th></th>
         <th>TOTAL WEIGHT</th>
-        <th>{{ $totalWeight }}</th>
+        <th>{{ $boxesTotalWeight }}</th>
     </tr>
 </table>
 
@@ -68,12 +68,14 @@
             <td>{{ $item->shipment_mode_slug }}</td>
             <td style="text-align:center;">
                 @php
-                        $boxes = 0;
+                        $shipmentBoxesWeight = 0;$boxesCounter = 0;
                     @endphp
-                @foreach($item->invoice_item_details as $record)
-                    @php $boxes += $record->boxes @endphp
-                @endforeach
-                {{ $boxes }}
+                    @foreach($item->boxes as $data)
+                        @php $shipmentBoxesWeight += $data->box_weight; 
+                             $boxesCounter++;
+                        @endphp
+                    @endforeach
+                    {{ $boxesCounter }}
             </td>
             <td>
                 <p class="mb-0">{{ $item->cosignee_name }}</p>
@@ -81,19 +83,16 @@
             </td>
             <td>
                 <ul>
-                    @php
-                        $totalWeight = 0;
-                    @endphp
-                    @foreach($item->invoice_item_details as $record)
+                    @foreach($item->invoice_item_details as $check)
                     <li style="list-style-type: none;">
-                        {{ $record->item_name }} ({{ $record->quantity  }}),
-                        <span style="display:none">{{$totalWeight += $record->weight}}</span>
+                        {{ $check->item_name }} ({{ $check->quantity  }}),
+                       
                     </li>
                     @endforeach
                 </ul>
             </td>
             <td style="text-align:center;">
-                    {{ $totalWeight }}
+                    {{ $shipmentBoxesWeight }}
             </td>
         </tr>
 

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use PDF; 
+//use PDF; 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Branch;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -88,11 +89,10 @@ class ManifestController extends Controller
 
     public function downloadManifestPDF(Request $request){
        
-       
         $from = $request->start_date;
         $to = $request->end_date;
         $branchId = $request->branchId;
-        $order = Invoice::with('invoice_item_details')->withCount('invoice_item_details')->whereRaw(
+        $order = Invoice::with('boxes','invoice_item_details')->withCount('invoice_item_details')->whereRaw(
             "(created_at >= ? AND created_at <= ?)", 
             [
             $from ." 00:00:00", 
@@ -100,17 +100,20 @@ class ManifestController extends Controller
             ]
         )->where('branch_id', $branchId)->get();
         
-          $totalWeight = 0;
-          $totalNoOfPieces = 0;
+        $boxesTotalWeight = 0; $totalNoOfPieces = 0; $totalNoOfBoxes = 0; 
+          
         foreach($order as $orders){
             foreach($orders->invoice_item_details as $key => $item){
-                $totalWeight += $item->weight;
                 $totalNoOfPieces += $item->quantity;
             }
+            foreach($orders->boxes as $key => $box){
+                $totalNoOfBoxes++;
+                $boxesTotalWeight += $box->box_weight;
+            }
         }
-       
-        $pdf = PDF::loadView('accounts.manifest.download_pdf', array('order' => $order, 'totalWeight' => $totalWeight, 'totalNoOfPieces' => $totalNoOfPieces, 'from' => $from, 'to'=> $to));
-        return $pdf->download('Manifest-From-'.$from.'-To-'.$to);
+       //['order', 'boxesTotalWeight', 'totalNoOfBoxes','totalNoOfPieces', 'from','to', 'branchId']
+        $pdf = PDF::loadView('accounts.manifest.download_pdf', array('order' => $order, 'boxesTotalWeight' => $boxesTotalWeight, 'totalNoOfBoxes' => $totalNoOfBoxes, 'totalNoOfPieces' => $totalNoOfPieces, 'from' => $from, 'to'=> $to));
+        return $pdf->download('Manifest-From-'.$from.'-To-'.$to.'.pdf');
     }
 
     public function downloadManifestExcell(Request $request){

@@ -79,44 +79,7 @@
                                 </tbody>
                         </table>
                         </div>
-                        <!-- <div class="col-lg-4">
-                            <label class="form-label" for="multicol-email">Invoice #</label>
-                                <div class="input-group input-group-merge">
-                                <input type="text" name="invoice_no" class="form-control bg-light"   value="{{ $lastInvoiceNo }}" id="invoiceId" readonly>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="form-label" for="multicol-email">Sales Person</label>
-                            <div class="input-group input-group-merge">
-                            <input type="text" name="sales_person" class="form-control bg-light" id="salesperson" value="{{ Auth::user()->name }}" readonly>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="form-label" for="multicol-email">Starting Date:</label>
-                            <div class="input-group input-group-merge">
-                            <input type="date" name="starting_date" class="form-control w-px-150" value="{{ date('Y-m-d H:i:s') }}"  >
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <label class="form-label" for="multicol-email">Shipment Mode</label>
-                            <div class="input-group input-group-merge">
-                                <select  class="form-control shipmentMode" name="shipment_mode">
-
-                                    <option value="">--Select Shiment Mode--</option>
-                                    <option value="Air cargo">Air cargo</option>
-                                    <option value="Budget cargo">Budget cargo</option>
-                                    <option value="Road cargo">Road cargo</option>
-                                
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="form-label" for="multicol-email">Due Date</label>
-                            <div class="input-group input-group-merge">
-                            <input type="date" name="due_dated" id="dueDate" class="form-control w-px-150 date-picker flatpickr-input" placeholder="YYYY-MM-DD" readonly>
-                            </div>
-                        </div> -->
+                        
                         
                     </div>
                     <div class="row my-3">
@@ -317,30 +280,30 @@
                                 <tr>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Box Charges</label>
-                                        <input type="number" name="boxCharges" class="form-control">
+                                        <input type="number" name="boxCharges" step="any" class="form-control">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Packing charge</label>
-                                        <input type="number" name="packingCharge" class="form-control">
+                                        <input type="number" name="packingCharge" step="any" class="form-control">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Bill Charges</label>
-                                        <input type="number" name="bill_charge" class="form-control"  step="any">
+                                        <input type="number" name="bill_charge" step="any" class="form-control"  step="any">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Other Charges</label>
-                                        <input type="number" name="other_charges" class="form-control"  step="any">
+                                        <input type="number" name="other_charges" step="any" class="form-control"  step="any">
                                     </td>
                                 </tr>
                                 <tr>
                                     
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Discount</label>
-                                        <input type="number" name="discount" class="form-control" >
+                                        <input type="number" name="discount" step="any" class="form-control" >
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">VAT</label>
-                                        <input type="number" name="vat" class="form-control">
+                                        <input type="number" name="vat" step="any" class="form-control">
                                     </td>
                                     <td colspan="2">
                                         <label for="note" class="form-label fw-semibold">Note:</label>
@@ -417,16 +380,6 @@ function deleteRow(button) {
                 boxTbleCounter.push(1); 
                 $(boxTbleWrapper).append(boxShipmentRow); 
         
-        // $(boxTbleWrapper).on('click', '.addItembtnDynamicTbl', function(e){
-        //     var dynTblSerial =  2;
-        //     var tableRowIndex = dynTblSerial - 1;
-        //         //adding row to dynamic tbl
-        //         var fieldHTML = '<tr><td>'+ dynTblSerial+'</td><td><textarea type="text" name="list['+tableRowIndex+']['+tableRowIndex+'][0]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" name="list['+tableRowIndex+']['+tableRowIndex+'][]" class="form-control" ></td><td> <input type="number" name="list['+tableRowIndex+']['+tableRowIndex+'][]" class="form-control" ></td> <td class="text-center"> <i class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
-        //         dynTblSerial++; 
-        //         $('#dynamicTblBody').append(fieldHTML); 
-        //         console.log(dynTblSerial);
-           
-        // });
 
         $(boxTbleWrapperRrow).on('click', '#dynamicTblRemoveRow', function(e){
             alert('remove dynamic tbl');
@@ -458,80 +411,8 @@ function deleteRow(button) {
             counter--; 
         });
 
-
-
-
-
-        // $(wrapper).on('input', '.Weight', function(e){
-        
-        //     var weight = $(this).val();   
-        //     //alert($(this).val());   
-        //     var tr = $(this).closest('tr');
-        //     $.ajax({
-        //         type: "GET",
-        //         url:"{{ url('accounts/current-shipment-weight') }}", 
-        //         data : {
-        //             weight: weight,
-        //         },
-        //         success: function (response) {
-        //             //$('#price').val(response);
-        //             tr.find("input[name='item_cost[]']").val(response);
-                
-        //         }
-                
-        //     });  
-        // });
     });
 </script>
-
-{{--<script>
-    $(document).ready(function(){
-        var maxField = 1000; //Input fields increment limitation
-        var addboxButton = $('.addboxbtn'); //Add button selector
-        var boxWrapper = $('#itemsTable'); //Input field wrapper
-        // var fieldHTML = '<tr><td><textarea type="text" name="item_name[]" cols="20" rows="2" class="form-control"></textarea></td><td><input type="number" name="item_box[]" class="form-control" ></td><td><input type="number" name="item_quantity[]" class="form-control" ></td><td><input type="number" step="any" name="item_weight[]"  min=0 class="form-control Weight"  ></td><td><input type="text" id="price" data-id="price" name="item_cost[]" class="form-control bg-light" readonly ></td><td> <i class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>';
-        
-        var boxTableHtml = '<tr><th colspan="3">Box 1</th><th colspan="2"> <input type="number" name="item_name" class="form-control" placeholder="Add Box weight"> </th></tr><tr><td></td><td><textarea type="text" name="item_name[]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" name="item_quantity[]" class="form-control" ></td><td> <input type="number" name="item_value[]" class="form-control" ></td> <td> <i class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
-
-        var x = 1; //Initial field counter is 1
-        
-        //Once add button is clicked
-        $(addboxButton).click(function(){
-            //Check maximum number of input fields
-            if(x < maxField){ 
-                x++; //Increment field counter
-                //$(boxWrapper).html(boxTableHtml); //Add field html
-            }
-        });
-        
-        //Once remove button is clicked
-        $(wrapper).on('click', '#itemsTableRowRBtn', function(e){
-            e.preventDefault();
-            $(this).closest('tr').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
-
-        $(wrapper).on('input', '.Weight', function(e){
-        
-            var weight = $(this).val();   
-            //alert($(this).val());   
-            var tr = $(this).closest('tr');
-            $.ajax({
-                type: "GET",
-                url:"{{ url('accounts/current-shipment-weight') }}", 
-                data : {
-                    weight: weight,
-                },
-                success: function (response) {
-                    //$('#price').val(response);
-                    tr.find("input[name='item_cost[]']").val(response);
-                
-                }
-                
-            });  
-        });
-    });
-</script>--}}
 
 <script>
     $('.shipmentMode').on('change', function()

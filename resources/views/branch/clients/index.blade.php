@@ -5,12 +5,12 @@
 
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header pb-2">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Clients /</span> List</h4>
        
         <span class="float-end">
-        @if(Auth::user()->hasRole('Branch-Admin') ){
-            <a  href="{{ url('clients/export/excel') }}" class="btn rounded-pill btn-success waves-effect waves-light ">Export Excel</a>
+        @if(Auth::user()->hasRole('Branch-Admin') )
+            {{--<a  href="{{ url('clients/export/excel') }}" class="btn rounded-pill btn-success waves-effect waves-light ">Export Excel</a>--}}
         @endif
             <a  href="{{ url('clients/create') }}" class="btn rounded-pill btn-primary waves-effect waves-light ">Create</a>
         </span>
@@ -27,8 +27,10 @@
             </ul>
         </div>
         @endif
-        <table class="table table-striped border-top" style="min-height: 120px;">
-        <thead>
+        
+            <table id="example" class="display nowrap" style="width:100%;">
+        
+            <thead>
             <tr>
             <th>SR#</th>
             <th>Name</th>
@@ -42,7 +44,7 @@
             <th>Actions</th>
             </tr>
         </thead>
-        <tbody class="table-border-bottom-0">
+            <tbody class="table-border-bottom-0">
            @foreach($branchClients as $key => $data)
             <tr>
                 <td>{{ ++$key }}</td>
@@ -51,7 +53,7 @@
                 <td>{{ $data->city }}</td>
                 <td>{{ $data->phone1 }}</td>
                 @if( Auth::user()->hasRole('Admin')  )
-                    <td>{{ $data->branch->branch_name }}</td>
+                    <td>{{ @$data->branch->branch_name }}</td>
                 @endif
                 <td>
                     <a href="{{ url('branch/disable-user/'.$data->id) }}" onclick="return confirm('Are you sure to change the status?')" class="badge {{ $data->status===1 ? 'bg-label-primary' : 'bg-label-danger'  }} me-1">{{ $data->status===1 ? 'Active' : 'Disabled'  }}</a>
@@ -74,7 +76,8 @@
             </tr>
            @endforeach
         </tbody>
-        </table>
+            </table>
+       
     </div>
 </div>
       
