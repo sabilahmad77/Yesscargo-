@@ -40,7 +40,7 @@
             @if( Auth::user()->hasRole('Admin')  )
                 <th>Branch</th>
             @endif
-            <th>Status</th>
+            <!-- <th>Status</th> -->
             <th>Actions</th>
             </tr>
         </thead>
@@ -55,9 +55,9 @@
                 @if( Auth::user()->hasRole('Admin')  )
                     <td>{{ @$data->branch->branch_name }}</td>
                 @endif
-                <td>
+                {{--<td>
                     <a href="{{ url('branch/disable-user/'.$data->id) }}" onclick="return confirm('Are you sure to change the status?')" class="badge {{ $data->status===1 ? 'bg-label-primary' : 'bg-label-danger'  }} me-1">{{ $data->status===1 ? 'Active' : 'Disabled'  }}</a>
-                </td>
+                </td>--}}
                 <td>
                     <div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -80,5 +80,36 @@
        
     </div>
 </div>
-      
+@section('script')
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+          
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4 ]
+                }
+            },
+        
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4 ]
+                }
+            },
+            'colvis'
+        ]
+    } );
+} );
+</script>
+@endsection
 @endsection
