@@ -23,9 +23,9 @@ class InvoiceController extends Controller
 
         if(Auth::user()->hasRole('Admin')){
 
-            $data['InvoicesList']  = Invoice::all();
+            $data['InvoicesList']  = Invoice::with('boxes.boxes_items')->get();
         }else{
-            $data['InvoicesList']  = Invoice::where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+            $data['InvoicesList']  = Invoice::with('boxes')->where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
         return view('accounts.invoice.index')->with($data);
     }
@@ -57,8 +57,8 @@ class InvoiceController extends Controller
             'bill_charge' => 'required',
            // 'item_cost' => 'required',
             'cosig_name' => 'required',
-            'cosig_email' => 'required',
-            'cosig_phone1' => 'required',
+           // 'cosig_email' => 'required',
+          //  'cosig_phone1' => 'required',
             //'cosig_phone2' => 'required',
             //'cosig_pinCode' => 'required',
             'cosignee_address' => 'required',
@@ -191,8 +191,10 @@ class InvoiceController extends Controller
         $vat_value = ($AfterDiscountAmount / 100);
         $vat_value *= $invoice->vat;
         $netBill = $AfterDiscountAmount + $vat_value;
+
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-        $amountString = $digit->format($netBill, 2);
+       
+        $amountString = $digit->format($netBill,2);
         return view('accounts.invoice.show',compact(['boxesWeight','boxShipmentCharges','amountString','invoice', 'totalNoOfPieces', 'vat_value', 'netBill']));
     }
 
@@ -252,13 +254,13 @@ class InvoiceController extends Controller
         $value = $request->value;
         if($value ==='Air cargo'){
             $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(15)->format('Y-m-d');
+            return $newDateTime = Carbon::now()->addDays(20)->format('Y-m-d');
         }elseif($value ==='Budget cargo'){
             $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(30)->format('Y-m-d');
+            return $newDateTime = Carbon::now()->addDays(50)->format('Y-m-d');
         }elseif($value ==='Road cargo'){
             $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(60)->format('Y-m-d');
+            return $newDateTime = Carbon::now()->addDays(30)->format('Y-m-d');
         }
     }
 }

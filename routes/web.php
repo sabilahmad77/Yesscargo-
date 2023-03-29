@@ -14,7 +14,8 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ReturnBoxController;     
 use App\Http\Controllers\TrackShipmentController;
 use App\Http\Controllers\ShipmentsController; 
-use App\Http\Controllers\AdminSettingsController;  
+use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\CategoriesController;    
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,9 +38,10 @@ Route::view('account-settings','account-settings');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::view('test01', 'test01');
+    Route::resource('/categories', CategoriesController::class);
     Route::group(['prefix'=>'accounts'], function(){
         Route::resource('/inventory', InventoryController::class);
+        
         Route::resource('invoice', InvoiceController::class); 
         Route::get('current-shipment-weight/', [AdminSettingsController::class, 'currentShipmentRate']);
         Route::get('invoice/download/{id}', [InvoiceController::class, 'downloadInvoice']);

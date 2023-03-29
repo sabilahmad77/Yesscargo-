@@ -16,8 +16,7 @@
         </span>
         
     </div>
-    
-    <div class="table-responsive text-nowrap">
+
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -27,7 +26,7 @@
             </ul>
         </div>
         @endif
-        
+        <span style=" padding:0px 10px; 10px 10px;">
             <table id="example" class="display nowrap" style="width:100%;">
         
             <thead>
@@ -76,9 +75,9 @@
             </tr>
            @endforeach
         </tbody>
-            </table>
-       
-    </div>
+        </table>
+    </span>
+  
 </div>
 @section('script')
 <script>

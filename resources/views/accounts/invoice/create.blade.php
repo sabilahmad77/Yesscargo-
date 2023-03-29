@@ -43,7 +43,7 @@
                                         <td>
                                             <label class="form-label" for="multicol-email">Sales Person</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="text" name="sales_person" class="form-control" id="salesperson"  >
+                                                <input type="text" name="sales_person" class="form-control" id="salesperson"  placeholder="Sales Person name">
                                             </div>
                                         </td>
                                         <td>
@@ -350,7 +350,7 @@ function deleteRow(button) {
             var tableRowIndex = boxTbleCounter[dynTblSerial];
             let tableRowIndexplus = tableRowIndex + 1;
             //adding row to dynamic tbl
-            var fieldHTML = '<tr ><td>'+ tableRowIndexplus +'</td><td><textarea type="text" name="list['+dynTblSerial+']['+tableRowIndex+'][0]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" name="list['+dynTblSerial+']['+tableRowIndex+'][1]" class="form-control" ></td><td> <input type="number" name="list['+dynTblSerial+']['+tableRowIndex+'][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
+            var fieldHTML = '<tr ><td>'+ tableRowIndexplus +'</td><td><textarea type="text" name="list['+dynTblSerial+']['+tableRowIndex+'][0]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][1]" class="form-control" ></td><td> <input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
             boxTbleCounter[dynTblSerial]++; 
             $('#dynamicTblBody'+dynTblSerial).append(fieldHTML); 
             console.log(dynTblSerial);

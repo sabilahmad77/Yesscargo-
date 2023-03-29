@@ -1,13 +1,13 @@
 @extends('layouts.yes-cargo')
-@section('title','Return-Box-List')
+@section('title','Categories-List')
 @section('content')
 
 <div class="card">
     <div class="card-header pb-2">
-        <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Return Box /</span> List</h4>
-        @if( Auth::user()->hasRole('Branch-Admin')  )
+        <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Categories /</span> List</h4>
+        @if( Auth::user()->hasRole('Admin')  )
         <span class="float-end">
-            <a href="{{ url('cargo-master/return-box/create') }}"type="button" class="btn rounded-pill btn-primary waves-effect waves-light ">Add</a>
+            <a href="{{ url('categories/create') }}"type="button" class="btn rounded-pill btn-primary waves-effect waves-light ">Create</a>
         </span>
         @endif
     </div>
@@ -16,26 +16,23 @@
     <table id="example" class="display nowrap" style="width:100%;">
     <thead>
         <tr>
-        
         <th>SR#</th>
-        <th>Invoice#</th>
-        <th >PCS</th>
-        <th>Consignee</th>
-        <th>Description Of Goods</th>
-        <th >Weight(kg)</th>
-        
+        <th>Category</th>
+       <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($returnBoxes as $key => $record)
+        @foreach( $categries as $rec)
         <tr>
-           <td>{{ ++$key }}</td>
-           <td>{{ $record->invoice->invoice_no }}</td>
-           <td>{{ $record->invoiceItem->quantity }}</td>
-           <td>{{ $record->invoice->cosignee_name }}</td> 
-           <td>{{ $record->invoiceItem->item_name }}</td>
-           <td>{{ $record->invoiceItem->weight }}</td>
-           
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $rec->name }}</td>
+            <td>
+                <form action="{{ url('categories/'.$rec->id) }}" method="POST">
+                    @csrf       
+                    @method('Delete')                                                      
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete?')"> <i class="ti ti-trash me-1"></i> Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </tbody>
@@ -43,6 +40,8 @@
 </span>
 </div>
 @section('script')
+
+
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
@@ -52,20 +51,20 @@ $(document).ready(function() {
             {
                 extend: 'copyHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5 ]
+                    columns: [ 0, 1 ]
                 }
             },
         
             {
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5 ]
+                    columns: [ 0, 1 ]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5 ]
+                    columns: [ 0, 1 ]
                 }
             },
             'colvis'

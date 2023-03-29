@@ -14,14 +14,14 @@
                     <div class="row">
                     <div class="col-6 mb-sm-0 mb-4">
                         <label for="">Current Shipment Rate Per Kg</label> 
-                        <input type="number" name="price"  class="form-control" value="{{ $weightPrice[0]->price }}" />
+                        <input type="number" step="any" name="price"  class="form-control" value="{{ $weightPrice[0]->price }}" />
                         
                     </div>
 
                     <div class="col-6 mb-sm-0  mb-4">
                          
                             <label for="">Old Shipment Rate Per Kg</label>
-                        <input type="number" name="price"  class="form-control" value="{{ $weightPrice[1]->price }}" disabled readonly/>
+                        <input type="number" step="any" name="price"  class="form-control" value="{{ $weightPrice[1]->price }}" disabled readonly/>
                         
                     </div>
                     <div class="col-12 mb-sm-0 mb-4">

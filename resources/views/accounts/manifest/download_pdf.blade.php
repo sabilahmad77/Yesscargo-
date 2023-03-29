@@ -18,18 +18,8 @@
 <img src="gen-img/Yes-Cargo-Logo.png" style="width: 30%; text-align:center;" alt="No logo">
 <h3 style="margin-bottom:0px;margin-top:0px;margin-left:5px;text-align:center;" >Manifest Report</h3>
 <table class="table1"  style="border-collapse: collapse;width: 100%;">
-    <tr>
-        <th>ORIGIN</th>
-        <th>Dammam</th>
-        <th>FLIGHT#</th>
-        <th>PACIFIC LOGISTICS SOLUTION</th>
-    </tr>
-    <tr>
-        <th>DESTINATION</th>
-        <th>DELHI</th>
-        <th>DATE</th>
-        <th>{{ $from .'---'. $to}}</th>
-    </tr>
+   
+   
     <tr>
         <th>M AWB#</th>
         <th>
@@ -46,9 +36,9 @@
         <th>{{ $totalNoOfPieces }}</th>
     </tr>
     <tr>
-        <th></th>
-        <th></th>
-        <th>TOTAL WEIGHT</th>
+        <th>DATE</th>
+        <th>{{ $from .'---'. $to}}</th>
+        <th>TOTAL WEIGHT (kg)</th>
         <th>{{ $boxesTotalWeight }}</th>
     </tr>
 </table>

@@ -41,7 +41,7 @@
     <div class="col-md-4">
         <label class="form-label" for="multicol-email">Amount</label>
         <div class="input-group input-group-merge">
-            <input type="number" name="amount" id="multicol-email" class="form-control" placeholder="Add Amount"  />
+            <input type="number" step="any" name="amount" id="multicol-email" class="form-control" placeholder="Add Amount"  />
         </div>
     </div>
     <div class="col-md-6">
