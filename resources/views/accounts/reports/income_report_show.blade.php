@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header pb-2">
+    <div class="card-header p-3">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Income /</span> Report</h4>
         
         <!-- <span class="float-end">
@@ -12,7 +12,7 @@
         
     </div>
     
-<div class="card-datatable table-responsive">
+    <span style=" padding:0px 10px; 10px 10px;">
     <table id="example" class="display nowrap" style="width:100%;">
     <thead>
         <tr>
@@ -66,13 +66,43 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="font-bold text-success">{{ 'SAR '. $InvoicesAmountSum }}</td>
+            <td class="font-bold text-success"> <b> {{ 'SAR '. $InvoicesAmountSum }} </b></td>
         </tr>
     </tfoot>
     </table>
-</div>
+</span>
 </div>
 @section('script')
 
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+          
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                }
+            },
+        
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                }
+            },
+            'colvis'
+        ]
+    } );
+} );
+</script>
 @endsection
 @endsection

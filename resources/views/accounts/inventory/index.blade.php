@@ -13,7 +13,7 @@
         @endif
     </div>
     
-<div class="card-datatable table-responsive">
+    <span style=" padding:0px 10px; 10px 10px;">
     <table id="example" class="display nowrap" style="width:100%;">
     <thead>
         <tr>
@@ -61,9 +61,37 @@
         @endforeach
     </tbody>
     </table>
-</div>
+</span>
 </div>
 @section('script')
-
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5 ]
+                }
+            },
+        
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5 ]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3,4,5 ]
+                }
+            },
+            'colvis'
+        ]
+    } );
+} );
+</script>
 @endsection
 @endsection
