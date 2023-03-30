@@ -209,6 +209,38 @@ class InvoiceController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'invoice_no'        => ['required'],
+            'cosignee_name'     => ['required'],
+            'cosignee_email'    => ['required'],
+            'cosignee_phone1'   => ['required'],
+            'cosignee_phone2'   => ['required'],
+            'cosignee_pincode'  => ['required'],
+            'cosignee_city'     => ['required'],
+            'cosignee_address'  => ['required'],
+            'invoice_note'      => ['required'],
+            'due_date'          => ['required'],
+            'discount'          => ['required'],
+            'shipment_mode'     => ['required'],
+            'vat'               => ['required'],
+            'other_charges'     => ['required'],
+            'bill_charges'      => ['required'],
+            'packing_charges'   => ['required'],
+            'box_charges'       => ['required'],
+            'starting_date'     => ['required'],
+            'box'               => ['required'],
+            'list'              => ['required'],
+
+            'customer.name'   => 'required|string',
+            'customer.email'  => 'required|email',
+            'customer.phone1' => 'required|string',
+            'customer.phone2' => 'required|string',
+            'customer.city'   => 'required|string',
+            'customer.pincode'=> 'required|string',
+            'customer.address'=> 'required|string',
+
+        ]);
+
         $invoice = Invoice::find($id);
 
         $invoice->update($request->except('box', 'list', 'customer'));
@@ -217,32 +249,33 @@ class InvoiceController extends Controller
 
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
 
-        foreach ($request->box as $boxData) {
+        foreach ($request->box as $key => $boxData) {
+
             $box = $invoice->boxes()->updateOrCreate(
-                ['id' => $boxData['box_id']],
                 [
-                    'box_name' => $boxData['box_name'],
-                    'box_weight' => $boxData['box_weight'],
+                    'id' => $boxData['box_id']
+                ],
+                [
+                    'box_name'                     => $boxData['box_name'],
+                    'box_weight'                   => $boxData['box_weight'],
                     'current_shipment_rate_per_kg' => $ShipmentWeightChargesLatest->price,
-                    'box_charges_as_per_kg' => $ShipmentWeightChargesLatest->price * $boxData['box_weight'],
+                    'box_charges_as_per_kg'        => $ShipmentWeightChargesLatest->price * $boxData['box_weight'],
                 ]
             );
 
             if ($box) {
 
-                InvoiceItemDetail::where('box_id', $box->id)->delete();
+                $box->boxes_items()->delete();
 
-                foreach ($request->list as $items) {
-                    foreach ($items as $item) {
+                foreach ($request->list[$key] as $item) {
 
-                        $box->boxes_items()->create([
-                            'invoices_id' => $invoice->id,
-                            'box_id' => $box->id,
-                            'item_name' => $item[0],
-                            'quantity' => $item[1],
-                            'item_per_cost' => $item[2]
-                        ]);
-                    }
+                    $box->boxes_items()->create([
+                        'invoices_id'   => $invoice->id,
+                        'box_id'        => $box->id,
+                        'item_name'     => $item[0],
+                        'quantity'      => $item[1],
+                        'item_per_cost' => $item[2]
+                    ]);
                 }
             }
         }

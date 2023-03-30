@@ -162,7 +162,6 @@
                                             <label class="form-label" for="multicol-email">Address</label>
                                             <div class="input-group input-group-merge">
                                                 <textarea type="text" name="customer[address]" id="address" class="form-control"
-                                                <textarea type="text" name="customer[address]" id="address" class="form-control"
                                                           placeholder="Add Address">{{$invoice->customer->address}}</textarea>
                                             </div>
                                         </td>
