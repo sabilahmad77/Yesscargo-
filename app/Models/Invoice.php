@@ -13,7 +13,7 @@ class Invoice extends Model
 
         'cosignee_pincode', 'cosignee_city', 'cosignee_address',
      
-        'sales_person','invoice_note','due_date', 'shipment_status',
+        'invoice_note','due_date', 'shipment_status',
 
         'sub_total','discount', 'tax','total',  'branch_admin_id', 'branch_id',
 

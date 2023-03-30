@@ -171,7 +171,7 @@ class InvoiceController extends Controller
 
     public function show($id)
     {
-        $invoice = Invoice::with('boxes.boxes_items','branch_admin','customer')->find($id);
+        $invoice = Invoice::with('boxes', 'boxes.boxes_items', 'branch_admin', 'customer')->find($id);
         $totalNoOfPieces = 0;
         foreach($invoice->invoice_item_details as $key => $item){
 
@@ -199,14 +199,53 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
-        $invoice = Invoice::find($id);
-        return view('accounts.invoice.edit');
+        $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'customer'])->find($id);
+
+        return view('accounts.invoice.edit', compact('invoice'));
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $invoice = Invoice::find($id);
+
+        $invoice->update($request->except('box', 'list', 'customer'));
+
+        $invoice->customer->update($request->customer);
+
+        $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
+
+        foreach ($request->box as $boxData) {
+            $box = $invoice->boxes()->updateOrCreate(
+                ['id' => $boxData['box_id']],
+                [
+                    'box_name' => $boxData['box_name'],
+                    'box_weight' => $boxData['box_weight'],
+                    'current_shipment_rate_per_kg' => $ShipmentWeightChargesLatest->price,
+                    'box_charges_as_per_kg' => $ShipmentWeightChargesLatest->price * $boxData['box_weight'],
+                ]
+            );
+
+            if ($box) {
+
+                InvoiceItemDetail::where('box_id', $box->id)->delete();
+
+                foreach ($request->list as $items) {
+                    foreach ($items as $item) {
+
+                        $box->boxes_items()->create([
+                            'invoices_id' => $invoice->id,
+                            'box_id' => $box->id,
+                            'item_name' => $item[0],
+                            'quantity' => $item[1],
+                            'item_per_cost' => $item[2]
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->route('invoice.index');
     }
 
 

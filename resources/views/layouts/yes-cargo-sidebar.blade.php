@@ -63,12 +63,12 @@
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item {{Request::is(['accounts/invoice/*']) ? 'active' : ''}}">
-                  <a href="{{ url('accounts/invoice') }}" class="menu-link">
+                <li class="menu-item {{Request::routeIs('invoice.*') ? 'active' : ''}}">
+                  <a href="{{ route('invoice.index') }}" class="menu-link">
                     <div data-i18n="Invoice">Invoice</div>
                   </a>
                 </li>
-                <li class="menu-item {{Request::is(['accounts/manifest/*']) ? 'active' : ''}}">
+                <li class="menu-item {{Request::routeIs('manifest.*') ? 'active' : ''}}">
                   <a href="{{ url('accounts/manifest') }}" class="menu-link">
                     <div data-i18n="Manifest">Manifest</div>
                   </a>
