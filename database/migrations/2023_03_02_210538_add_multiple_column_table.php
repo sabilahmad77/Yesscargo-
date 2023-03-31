@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invoices', function (Blueprint $table) {
-            
-            $table->string('cosignee_name')->required();
-            $table->string('cosignee_email')->required();
-            $table->string('cosignee_phone1')->required();
-            $table->string('cosignee_phone2')->nullable();
-            $table->string('cosignee_pincode')->nullable();
-            $table->string('cosignee_city')->required();
-            $table->longText('cosignee_address')->required();
-        });
+//        Schema::table('invoices', function (Blueprint $table) {
+//
+//            $table->string('cosignee_name')->required();
+//            $table->string('cosignee_email')->required();
+//            $table->string('cosignee_phone1')->required();
+//            $table->string('cosignee_phone2')->nullable();
+//            $table->string('cosignee_pincode')->nullable();
+//            $table->string('cosignee_city')->required();
+//            $table->longText('cosignee_address')->required();
+//        });
     }
 
     /**
