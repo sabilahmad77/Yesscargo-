@@ -85,16 +85,20 @@
 
                         </div>
                         <div class="row my-3">
-                            <div class="col-sm-4  mb-sm-0 mb-4">
-                                <label class="form-label" for="multicol-email">Search</label>
+                            <div class="col-sm-4 mb-sm-0 mb-4">
+                                <label class="form-label" for="searchUserByName">Search</label>
                                 <div class="input-group input-group-merge">
-                                    <input type="text" name="name" class="form-control searchUserByName"
-                                           placeholder="Search for user by name"/>
+                                    <select class="form-control" id="searchUserByName" name="searchUserByName">
+                                        <option value="">--Select Shipper--</option>
+                                        @foreach(\App\Models\BranchClients::all() as $country)
+                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-2 mb-sm-0 mb-4">
                                 <label class="form-label" for="multicol-email"></label>
-                                <button type="button" class="btn btn-primary mt-4 searchByName">Search</button>
+                                <button type="button" class="btn btn-primary mt-4 searchByName">Select Shipper</button>
                             </div>
                         </div>
                         <div class="row my-3">
@@ -511,7 +515,7 @@
     <script>
         $('.searchByName').click(function (e) {
             e.preventDefault();
-            var searchUser = $('.searchUserByName').val();
+            var searchUser = $('#searchUserByName').val();
             //alert(searchUser);
             $.ajax({
                 type: "GET",

@@ -81,7 +81,7 @@ class InvoiceController extends Controller
                 'phone2' => @$request->phone2,
                 'address' => @$request->address,
             );
-            $branchClient = BranchClients::create($data);
+            $branchClient = BranchClients::updateOrCreate(['email' => $data['email']], $data);
              $customerId = $branchClient->id;
         }else{
              $customerId = $branchClientCheck->id;
@@ -248,7 +248,7 @@ class InvoiceController extends Controller
 
         $invoice->update($request->except('box', 'list', 'customer'));
 
-        $invoice->customer->update($request->customer);
+        $invoice->customer->updateOrCreate(['email' => $request->customer['email']], $request->customer);
 
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
 
