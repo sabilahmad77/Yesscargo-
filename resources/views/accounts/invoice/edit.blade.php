@@ -1,6 +1,7 @@
 @extends('layouts.yes-cargo')
 @section('title','Create-Invoice')
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css ') }}"/>
     <div class="row invoice-add">
         <!-- Invoice Add-->
@@ -87,7 +88,7 @@
                             <div class="col-sm-4 mb-sm-0 mb-4">
                                 <label class="form-label" for="searchUserByName">Search</label>
                                 <div class="input-group input-group-merge">
-                                    <select class="form-control" id="searchUserByName" name="searchUserByName">
+                                    <select class="form-control searchable" id="searchUserByName" name="searchUserByName">
                                         <option value="">--Select Shipper--</option>
                                         @foreach(\App\Models\BranchClients::all() as $country)
                                             <option value="{{ $country->name }}">{{ $country->name }}</option>
@@ -97,7 +98,7 @@
                             </div>
                             <div class="col-sm-2 mb-sm-0 mb-4">
                                 <label class="form-label" for="multicol-email"></label>
-                                <button type="button" class="btn btn-primary mt-4 searchByName">Select Shipper</button>
+                                <button type="button" class="btn btn-primary  searchByName">Select Shipper</button>
                             </div>
                         </div>
                         <div class="row my-3">
@@ -146,7 +147,7 @@
                                         <td>
                                             <label class="form-label" for="country">Country</label>
                                             <div class="input-group input-group-merge">
-                                                <select  class="form-control" id="country" name="customer[country]">
+                                                <select  class="form-control searchable" id="country" name="customer[country]">
                                                     <option value="">--Select Country--</option>
                                                     @foreach(\App\Models\Country::all() as $country)
                                                         <option value="{{ $country->name }}" @selected($invoice->customer->country == $country->name)>{{ $country->name }}</option>
@@ -226,20 +227,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <label class="form-label" for="multicol-email">Pin Code</label>
-                                            <div class="input-group input-group-merge">
-                                                <input type="text" name="cosignee_pincode" value="{{ $invoice->cosignee_pincode }}" class="form-control"
-                                                       placeholder="Add Pin Code"/>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    
                                     <tr>
                                         <td>
                                             <label class="form-label" for="consignee_country">Country</label>
                                             <div class="input-group input-group-merge">
-                                                <select  class="form-control" id="consignee_country" name="consignee_country">
+                                                <select  class="form-control searchable" id="consignee_country" name="consignee_country">
                                                     <option value="">--Select Country--</option>
                                                     @foreach(\App\Models\Country::all() as $country)
                                                         <option value="{{ $country->name }}" @selected($invoice->consignee_country == $country->name)>{{ $country->name }}</option>
@@ -253,6 +246,15 @@
                                             <label class="form-label" for="multicol-email">City</label>
                                             <div class="input-group input-group-merge">
                                                 <input type="text" name="cosignee_city" value="{{ $invoice->cosignee_city }}" class="form-control"
+                                                       placeholder="Add Pin Code"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="form-label" for="multicol-email">Pin Code</label>
+                                            <div class="input-group input-group-merge">
+                                                <input type="text" name="cosignee_pincode" value="{{ $invoice->cosignee_pincode }}" class="form-control"
                                                        placeholder="Add Pin Code"/>
                                             </div>
                                         </td>
@@ -410,6 +412,7 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <script>
         function deleteRow(button) {
             // Get the parent <tr> element
@@ -543,5 +546,11 @@
         });
 
     </script>
-
+<script>
+$(document).ready(function () {
+        $('.searchable').selectize({
+            sortField: 'text'
+        });
+});
+</script>
 @endsection
