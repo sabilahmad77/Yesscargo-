@@ -90,7 +90,6 @@ class InvoiceController extends Controller
         $data = array(
             'invoice_no'           => $request->invoice_no,
             'branch_admin_id'  => Auth::user()->id,
-            'due_date'  => $request->due_dated,
             'branch_id' => $request->branch_id,
             'cosignee_name'          => $request->cosig_name,
             'cosignee_email' => $request->cosig_email,
@@ -101,7 +100,7 @@ class InvoiceController extends Controller
             'cosignee_city'        => $request->cosig_city,
             'cosignee_address'        => $request->cosignee_address,
             'starting_date'         => $request->starting_date,
-            'due_date'  => $request->due_dated,
+            'due_date' => $request->due_dated,
             'invoice_note' => $request->invoice_note,
             'shipment_mode' =>$request->shipment_mode,
             'shipment_mode_slug' => $shipmentModeSlug,
@@ -327,16 +326,13 @@ class InvoiceController extends Controller
     }
 
     public function shipmentDueDate(Request $request){
-        $value = $request->value;
-        if($value ==='Air cargo'){
-            $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(20)->format('Y-m-d');
-        }elseif($value ==='Budget cargo'){
-            $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(50)->format('Y-m-d');
-        }elseif($value ==='Road cargo'){
-            $currentDateTime = Carbon::now();
-            return $newDateTime = Carbon::now()->addDays(30)->format('Y-m-d');
-        }
+
+        $days = match ($request->value) {
+            'Budget cargo' => 50,
+            'Road cargo'   => 30,
+            default        => 20,
+        };
+
+        return now()->addDays($days)->format('d/m/Y');
     }
 }

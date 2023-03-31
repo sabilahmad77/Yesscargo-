@@ -72,8 +72,8 @@
                                         <td>
                                             <label class="form-label" for="multicol-email">Due Date</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="date" name="due_date" value="{{ $invoice->due_date }}" id="dueDate" class="form-control"
-                                                       placeholder="YYYY-MM-DD" readonly>
+                                                <input type="text" name="due_date" value="{{ $invoice->due_date }}" id="dueDate" class="form-control"
+                                                       placeholder="DD/MM/YYYY" readonly>
                                             </div>
                                         </td>
                                         <td></td>

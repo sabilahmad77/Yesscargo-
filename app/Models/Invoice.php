@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,6 +38,16 @@ class Invoice extends Model
     public function boxes(){
 
         return $this->hasMany(ShipmentBoxes::class, 'invoice_id','id');
+    }
+
+    public function setDueDateAttribute($value)
+    {
+        $this->attributes['due_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    public function getDueDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
     }
 
 }
