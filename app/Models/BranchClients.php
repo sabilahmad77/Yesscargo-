@@ -10,7 +10,7 @@ class BranchClients extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['branches_id', 'name','email', 'city', 'pincode', 'phone1',
-    'phone2','address'
+    'phone2','address', 'country'
     ];
 
     public function branch(){

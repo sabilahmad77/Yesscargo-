@@ -134,6 +134,19 @@
                                     </tr>
                                     <tr>
                                     <td>
+                                        <label class="form-label" for="country">Country</label>
+                                        <div class="input-group input-group-merge">
+                                            <select  class="form-control" id="country" name="country">
+                                                <option value="">--Select Country--</option>
+                                                @foreach(\App\Models\Country::all() as $country)
+                                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <label class="form-label" for="multicol-email">City</label>
                                         <div class="input-group input-group-merge">
                                             <input type="text" name="city" id="city" class="form-control" placeholder="Select City"/>
@@ -201,6 +214,19 @@
                                         <label class="form-label" for="multicol-email">Pin Code</label>
                                         <div class="input-group input-group-merge">
                                             <input type="text" name="cosig_pinCode"  class="form-control" placeholder="Add Pin Code" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="form-label" for="cosig_country">Country</label>
+                                        <div class="input-group input-group-merge">
+                                            <select  class="form-control" id="cosig_country" name="cosig_country">
+                                                <option value="">--Select Country--</option>
+                                                @foreach(\App\Models\Country::all() as $country)
+                                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </td>
                                 </tr>

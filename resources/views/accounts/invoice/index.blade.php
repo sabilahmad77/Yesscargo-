@@ -1,6 +1,17 @@
 @extends('layouts.yes-cargo')
 @section('title','Invoice-List')
 @section('content')
+    <div class="card">
+        <div class="card-header pb-2">
+            <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Invoice /</span> List</h4>
+            @if( Auth::user()->hasRole('Branch-Admin')  )
+                <span class="float-end">
+            <a href="{{ url('accounts/invoice/create') }}" type="button"
+               class="btn rounded-pill btn-primary waves-effect waves-light ">Create</a>
+        </span>
+            @endif
+        </div>
+    </div>
     <span style=" padding:0px 10px; 10px 10px;">
     <table id="example" class="display nowrap" style="width:100%;">
     <thead>

@@ -141,6 +141,19 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <label class="form-label" for="country">Country</label>
+                                            <div class="input-group input-group-merge">
+                                                <select  class="form-control" id="country" name="customer[country]">
+                                                    <option value="">--Select Country--</option>
+                                                    @foreach(\App\Models\Country::all() as $country)
+                                                        <option value="{{ $country->name }}" @selected($invoice->customer->country == $country->name)>{{ $country->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <label class="form-label" for="multicol-email">City</label>
                                             <div class="input-group input-group-merge">
                                                 <input type="text" name="customer[city]" id="city" value="{{ $invoice->customer->city }}" class="form-control"
@@ -216,6 +229,19 @@
                                             <div class="input-group input-group-merge">
                                                 <input type="text" name="cosignee_pincode" value="{{ $invoice->cosignee_pincode }}" class="form-control"
                                                        placeholder="Add Pin Code"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="form-label" for="consignee_country">Country</label>
+                                            <div class="input-group input-group-merge">
+                                                <select  class="form-control" id="consignee_country" name="consignee_country">
+                                                    <option value="">--Select Country--</option>
+                                                    @foreach(\App\Models\Country::all() as $country)
+                                                        <option value="{{ $country->name }}" @selected($invoice->consignee_country == $country->name)>{{ $country->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </td>
                                     </tr>

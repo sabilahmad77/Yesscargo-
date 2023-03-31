@@ -18,7 +18,7 @@ class Invoice extends Model
         'sub_total','discount', 'tax','total',  'branch_admin_id', 'branch_id',
 
         'shipment_mode_slug','shipment_mode','customer_id','vat','discount',
-        'other_charges','bill_charges', 'packing_charges', 'box_charges','starting_date'
+        'other_charges','bill_charges', 'packing_charges', 'box_charges','starting_date', 'consignee_country'
     ];
 
     public function invoice_item_details(){
