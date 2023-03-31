@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css ') }}"/>
     <div class="row invoice-add">
         <!-- Invoice Add-->
-
         @if ($errors->any())
             <div class="row">
                 <div class="col-lg-12">
