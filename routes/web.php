@@ -78,6 +78,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::get('users/disable/{id}', [UserController::class, 'userDisableSettings']);
     Route::get('users/account-settings/{id}', [UserController::class, 'userAccountSettings']);
-    Route::resource('branch', BranchController::class);
+    Route::resource('branch', BranchController::class)->middleware('role:Admin');
     Route::get('branch/disable/{id}', [BranchController::class, 'branchDisableSettings']);
 });
