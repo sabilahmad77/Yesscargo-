@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('inventories', function (Blueprint $table) {
-            $table->float('amount', 8, 2)->default(0.00);
-        });
+//        Schema::table('inventories', function (Blueprint $table) {
+//            $table->float('amount', 8, 2)->default(0.00);
+//        });
     }
 
     /**
