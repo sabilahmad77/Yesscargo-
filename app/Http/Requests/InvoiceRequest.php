@@ -47,14 +47,14 @@ class InvoiceRequest extends FormRequest
             'shipper.address' => 'nullable|string',
 
             'box' => ['required', 'array'],
-            'box.*.box_weight' => ['required', 'integer'],
+            'box.*.box_weight' => ['required', 'decimal:0,2'],
             'box.*.box_name' => ['required', 'string'],
 
             'box.*.items' => ['sometimes', 'array'],
 
             'box.*.items.*.item_name' => ['required', 'string'],
             'box.*.items.*.quantity' => ['required', 'integer'],
-            'box.*.items.*.item_per_cost' => ['required', 'integer'],
+            'box.*.items.*.item_per_cost' => ['required', 'decimal:0,2'],
         ];
     }
 
