@@ -23,7 +23,7 @@ class InvoiceController extends Controller
 
         if(Auth::user()->hasRole('Admin')){
 
-            $data['InvoicesList']  = Invoice::with('boxes.boxes_items')->get();
+            $data['InvoicesList']  = Invoice::with('boxes.boxes_items')->orderBy('id', 'DESC')->get();
         }else{
             $data['InvoicesList']  = Invoice::with('boxes')->where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
@@ -49,21 +49,45 @@ class InvoiceController extends Controller
 
         //return $request;
         $data = $request->validate([
+            'sales_person' => 'required',
+            'starting_date' => 'required',
+            'shipment_mode' => 'required',
+            'due_dated' => 'required',
+
             'name' => 'required',
             'phone' => 'required',
-            'sales_person' => 'required',
-            'shipment_mode' => 'required',
-           // 'item_name' => 'required',
-            'bill_charge' => 'required',
-           // 'item_cost' => 'required',
+            'country' => 'required',
+            'city' => 'required',
+            'pincode' => 'required',
+            'address' => 'required',
+
             'cosig_name' => 'required',
-           // 'cosig_email' => 'required',
-          //  'cosig_phone1' => 'required',
-            //'cosig_phone2' => 'required',
-            //'cosig_pinCode' => 'required',
+            'cosig_phone1' => 'required',
+            'cosig_country' => 'required',
+            'cosig_city' => 'required',
+            'cosig_pinCode' => 'required',
             'cosignee_address' => 'required',
-        // ], [
-        //     'name.required' => 'Name field is required.',
+            
+         ], [
+             'sales_person.required' => 'Sales Person name field is required.',
+             'starting_date.required' => 'Starting Date field is required.',
+             'shipment_mode.required' => 'Shipment mode field is required.',
+             'due_dated.required' => 'Due Date field is required.',
+
+             'name.required' => 'Shipper name field is required.',
+             'phone.required' => 'Shipper phone field is required.',
+             'country.required' => 'Shipper country field is required.',
+             'city.required' => 'Shipper city field is required.',
+             'pincode.required' => 'Shipper pincode field is required.',
+             'address.required' => 'Shipper address field is required.',
+
+            'cosig_name.required' => 'Consignee name field is required.',
+            'cosig_phone1.required' => 'Consignee phone field is required.',
+            'cosig_country.required' => 'Consignee country field is required.',
+            'cosig_city.required' => 'Consignee city field is required.',
+            'cosig_pinCode.required' => 'Consignee pincode field is required.',
+            'cosignee_address.required' => 'Consignee address field is required.',
+ 
         //     'password.required' => 'Password field is required.',
         //     'email.required' => 'Email field is required.',
         //     'email.email' => 'Email field must be email address.'
@@ -111,7 +135,7 @@ class InvoiceController extends Controller
             'bill_charges'              => $request->bill_charge,
             'box_charges'  => $request->boxCharges,
             'packing_charges'  => $request->packingCharge,
-            'total'        => 000
+            'sales_person'        => $request->sales_person
 
         );
 

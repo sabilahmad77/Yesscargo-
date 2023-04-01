@@ -232,7 +232,13 @@
             <!-- <small class="text-danger">-16.2%</small> -->
           </div>
         </div>
-      <div class="resize-triggers"><div class="expand-trigger"><div style="width: 155px; height: 220px;"></div></div><div class="contract-trigger"></div></div></div>
+      <!-- <div class="resize-triggers">
+        <div class="expand-trigger">
+          <div style="width: 155px; height: 220px;"></div>
+        </div>
+        <div class="contract-trigger"></div>
+      </div> -->
+    </div>
     </div>
 
     <div class="col-xl-2 col-md-4 col-6 mb-4">
@@ -256,7 +262,13 @@
             <h4 class="mb-0"> {{ 'SAR '. number_format($amount,2) }}</h4>
             <!-- <small class="text-success">+12.6%</small> -->
           </div>
-        <div class="resize-triggers"><div class="expand-trigger"><div style="width: 155px; height: 149px;"></div></div><div class="contract-trigger"></div></div></div>
+        <!-- <div class="resize-triggers">
+          <div class="expand-trigger">
+            <div style="width: 155px; height: 149px;"></div>
+          </div>
+          <div class="contract-trigger"></div>
+        </div> -->
+      </div>
       </div>
     </div>
 

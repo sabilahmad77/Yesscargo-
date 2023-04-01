@@ -13,7 +13,7 @@
                     @csrf
                     <input type="hidden" name="branch_id" value="{{ $branchId->id }}">
                     <input type="hidden" name="branch_name" value="{{ $branchId->branch_name }}">
-                    @if ($errors->any())
+                    {{--@if ($errors->any())
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="alert alert-danger">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    @endif
+                    @endif--}}
                 
                     <div class="row">
                         <div class="col-lg-12">
@@ -43,25 +43,31 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="form-label" for="multicol-email">Sales Person</label>
+                                            <label class="form-label" for="multicol-email">Sales Person <span class="text-danger">*</span></label>
                                             <div class="input-group input-group-merge">
-                                                <input type="text" name="sales_person" class="form-control" id="salesperson"  placeholder="Sales Person name">
+                                                <input type="text" name="sales_person" value="{{old('sales_person')}}" class="form-control" id="salesperson"  placeholder="Sales Person name">
                                             </div>
+                                            @error('sales_person')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </td>
                                         <td>
-                                            <label class="form-label" for="multicol-email">Starting Date:</label>
+                                            <label class="form-label" for="multicol-email">Starting Date: <span class="text-danger">*</span></label>
                                             <div class="input-group input-group-merge">
-                                                <input type="date" name="starting_date" class="form-control  w-px-150 date-picker flatpickr-input" value="{{ date('Y-m-d H:i:s') }}"  >
+                                                <input type="date" name="starting_date" value="{{old('starting_date')}}" class="form-control  w-px-150 date-picker flatpickr-input" value="{{ date('Y-m-d H:i:s') }}"  >
                                             </div>
+                                            @error('starting_date')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label class="form-label" for="multicol-email">Shipment Mode</label>
+                                            <label class="form-label" for="multicol-email">Shipment Mode <span class="text-danger">*</span></label>
                                             <div class="input-group input-group-merge">
                                                 <select  class="form-control shipmentMode" name="shipment_mode">
 
-                                                    <option value="">--Select Shiment Mode--</option>
+                                                    <option value="{{old('shipment_mode')}}">--Select Shiment Mode--</option>
                                                     <option value="Air cargo">Air cargo</option>
                                                     <option value="Budget cargo">Budget cargo</option>
                                                     <option value="Road cargo">Road cargo</option>
@@ -69,12 +75,18 @@
 
                                                 </select>
                                             </div>
+                                            @error('shipment_mode')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </td>
                                         <td>
-                                            <label class="form-label" for="multicol-email">Due Date</label>
+                                            <label class="form-label" for="multicol-email">Due Date <span class="text-danger">*</span></label>
                                             <div class="input-group input-group-merge">
-                                                <input type="text" name="due_dated" id="dueDate" class="form-control" placeholder="DD/MM/YYYY" readonly>
+                                                <input type="text" name="due_dated" value="{{old('due_dated')}}" id="dueDate" class="form-control" placeholder="DD/MM/YYYY" readonly>
                                             </div>
+                                            @error('due_dated')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </td>
                                         <td></td>
                                     </tr>
@@ -113,71 +125,90 @@
                                 </thead>
                                     <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Name</label>
+                                        <label class="form-label" for="multicol-email">Name <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="name" id="clientName" class="form-control" placeholder="Mr xyz" />
+                                            <input type="text" name="name" value="{{old('name')}}" id="clientName" class="form-control" placeholder="Mr xyz" />
                                         </div>
+                                        @error('name')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
                                         <label class="form-label" for="multicol-email">Email</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="email" name="email" id="clientEmail" class="form-control" placeholder="example@example.com" />
+                                            <input type="email" name="email" value="{{old('email')}}" id="clientEmail" class="form-control" placeholder="example@example.com" />
                                         </div>
+                                        
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Phone 1</label>
+                                        <label class="form-label" for="multicol-email">Phone 1 <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="phone" id="phone1" class="form-control" placeholder="Add phone number 1" />
+                                            <input type="tel" name="phone" value="{{old('phone')}}" id="phone1" class="form-control" placeholder="Add phone number 1" />
                                         </div>
+                                        @error('phone')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
                                         <label class="form-label" for="multicol-email">Phone 2</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="phone2" id="phone2" class="form-control" placeholder="Add phone number 2"/>
+                                            <input type="tel" name="phone2" value="{{old('phone2')}}" id="phone2" class="form-control" placeholder="Add phone number 2"/>
                                         </div>
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
-                                        <label class="form-label" for="country">Country</label>
+                                        <label class="form-label" for="country">Country <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <select  class="form-control searchable"  id="country" name="country">
-                                                <option value="">--Select Country--</option>
+                                            <select  class="form-control searchable"  id="country" name="country" required>
+                                                <option value="{{old('country')}}">--Select Country--</option>
                                                 @foreach(\App\Models\Country::all() as $country)
                                                     <option value="{{ $country->name }}">{{ $country->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @error('country')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">City</label>
+                                        <label class="form-label" for="multicol-email">City <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="city" id="city" class="form-control" placeholder="Select City"/>
+                                            <input type="text" name="city" value="{{old('city')}}" id="city" class="form-control" placeholder="Select City"/>
                                         </div>
+                                        @error('city')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Pin Code</label>
+                                        <label class="form-label" for="multicol-email">Pin Code <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Add Pin Code"/>
+                                            <input type="text" name="pincode" value="{{old('pincode')}}" id="pincode" class="form-control" placeholder="Add Pin Code"/>
                                         </div>
+                                        @error('pincode')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     </tr>
                                     <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Address</label>
+                                        <label class="form-label" for="multicol-email">Address <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <textarea type="text" name="address" id="address" class="form-control" placeholder="Add Address"></textarea>
+                                            <textarea type="text" name="address" value="{{old('address')}}" id="address" class="form-control" placeholder="Add Address"></textarea>
                                         </div>
+                                        @error('address')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                     </tr>
                                 </tr>
@@ -190,71 +221,91 @@
                                 </thead>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Name</label>
+                                        <label class="form-label" for="multicol-email">Name <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_name" class="form-control" placeholder="Add Cosignee Name" />
+                                            <input type="text" name="cosig_name" value="{{old('cosig_name')}}" class="form-control" placeholder="Add Cosignee Name" />
                                         </div>
+                                        @error('cosig_name')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label class="form-label" for="multicol-email">Email</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_email"  class="form-control" placeholder="Add Cosignee Email" />
+                                            <input type="text" name="cosig_email" value="{{old('cosig_email')}}"  class="form-control" placeholder="Add Cosignee Email" />
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Phone 1</label>
+                                        <label class="form-label" for="multicol-email">Phone 1 <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_phone1"  class="form-control" placeholder="Add Phone 1" />
+                                            <input type="tel" name="cosig_phone1" value="{{old('cosig_phone1')}}"  class="form-control" placeholder="Add Phone 1" />
                                         </div>
+                                        @error('cosig_phone1')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label class="form-label" for="multicol-email">Phone 2</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_phone2"  class="form-control" placeholder="Add Phone 2" />
+                                            <input type="tel" name="cosig_phone2" value="{{old('cosig_phone2')}}"  class="form-control" placeholder="Add Phone 2" />
                                         </div>
                                     </td>
                                 </tr>
                                 
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="cosig_country">Country</label>
+                                        <label class="form-label" for="cosig_country">Country <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <select  class="form-control searchable" id="cosig_country" name="cosig_country">
-                                                <option value="">--Select Country--</option>
+                                            <select  class="form-control searchable" id="cosig_country" name="cosig_country" required>
+                                                <option value="{{old('cosig_country')}}">--Select Country--</option>
                                                 @foreach(\App\Models\Country::all() as $country)
                                                     <option value="{{ $country->name }}">{{ $country->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @error('cosig_country')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">City</label>
+                                        <label class="form-label" for="multicol-email">City <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_city"  class="form-control" placeholder="Select City" />
+                                            <input type="text" name="cosig_city" value="{{old('cosig_city')}}"  class="form-control" placeholder="Select City" />
                                         </div>
+                                        @error('cosig_city')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Pin Code</label>
+                                        <label class="form-label" for="multicol-email">Pin Code <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="cosig_pinCode"  class="form-control" placeholder="Add Pin Code" />
+                                            <input type="text" name="cosig_pinCode" value="{{old('cosig_pinCode')}}"  class="form-control" placeholder="Add Pin Code" />
                                         </div>
+                                        @error('cosig_pinCode')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label class="form-label" for="multicol-email">Address</label>
+                                        <label class="form-label" for="multicol-email">Address <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
-                                        <textarea type="text" name="cosignee_address" id="address" class="form-control" placeholder="Add Address"></textarea>
+                                            <textarea type="text" name="cosignee_address" value="{{old('cosignee_address')}}" id="address" class="form-control" placeholder="Add Address"></textarea>
+                                        </div>
+                                            @error('cosignee_address')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        
                                     </td>
                                 </tr>
                             </table>
@@ -318,34 +369,34 @@
                                 <tr>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Box Charges</label>
-                                        <input type="number" name="boxCharges" step="any" class="form-control">
+                                        <input type="number" name="boxCharges" value="{{old('boxCharges')}}" step="any" class="form-control">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Packing charge</label>
-                                        <input type="number" name="packingCharge" step="any" class="form-control">
+                                        <input type="number" name="packingCharge" value="{{old('packingCharge')}}" step="any" class="form-control">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Bill Charges</label>
-                                        <input type="number" name="bill_charge" step="any" class="form-control"  step="any">
+                                        <input type="number" name="bill_charge" value="{{old('bill_charge')}}" step="any" class="form-control"  step="any">
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Other Charges</label>
-                                        <input type="number" name="other_charges" step="any" class="form-control"  step="any">
+                                        <input type="number" name="other_charges" value="{{old('other_charges')}}" step="any" class="form-control"  step="any">
                                     </td>
                                 </tr>
                                 <tr>
                                     
                                     <td>
                                         <label for="note" class="form-label fw-semibold">Discount</label>
-                                        <input type="number" name="discount" step="any" class="form-control" >
+                                        <input type="number" name="discount" value="{{old('discount')}}" step="any" class="form-control" >
                                     </td>
                                     <td>
                                         <label for="note" class="form-label fw-semibold">VAT</label>
-                                        <input type="number" name="vat" step="any" class="form-control">
+                                        <input type="number" name="vat" value="{{old('vat')}}" step="any" class="form-control">
                                     </td>
                                     <td colspan="2">
                                         <label for="note" class="form-label fw-semibold">Note:</label>
-                                        <textarea  class="form-control"name="invoice_note" rows="1" id="note" placeholder="Invoice note"></textarea>
+                                        <textarea  class="form-control"name="invoice_note" value="{{old('invoice_note')}}" rows="1" id="note" placeholder="Invoice note"></textarea>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -389,7 +440,7 @@ function deleteRow(button) {
             var tableRowIndex = boxTbleCounter[dynTblSerial];
             let tableRowIndexplus = tableRowIndex + 1;
             //adding row to dynamic tbl
-            var fieldHTML = '<tr ><td>'+ tableRowIndexplus +'</td><td><textarea type="text" name="list['+dynTblSerial+']['+tableRowIndex+'][0]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][1]" class="form-control" ></td><td> <input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
+            var fieldHTML = '<tr ><td>'+ tableRowIndexplus +'</td><td><textarea type="text" name="list['+dynTblSerial+']['+tableRowIndex+'][0]" cols="20" rows="1" class="form-control" required></textarea></td><td><input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][1]" class="form-control" required></td><td> <input type="number" step="any" name="list['+dynTblSerial+']['+tableRowIndex+'][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger" id="itemsTableRowRBtn" ></i></td></tr>'; //New input field html 
             boxTbleCounter[dynTblSerial]++; 
             $('#dynamicTblBody'+dynTblSerial).append(fieldHTML); 
             console.log(dynTblSerial);
@@ -407,7 +458,7 @@ function deleteRow(button) {
              
                 var sr = boxTbleCounter.length + 1;
                 var box_nu = sr - 1;
-                var boxShipmentRow = '<div class="col-lg-12 my-3"><table class="table table-striped table-bordered" width="100%"  id="itemsTable"><tr><th colspan="3">Box '+sr+'</th><input type="hidden" name="box['+box_nu+'][0]" value="Box '+sr+'"> <th colspan="2"> <input type="number" step="any" name="box['+box_nu+'][1]" class="form-control" placeholder="Add Box weight"> </th></tr><tr><th>Sr#</th><th>Item Name</th><th>Qty</th> <th>Value (SAR)</th><th style="width:15%;"  class="text-center">Action</th></tr><tbody id="dynamicTblBody'+box_nu+'"><tr> <td> 1 </td> <td> <textarea type="text" name="list['+box_nu+'][0][0]" cols="20" rows="1" class="form-control"></textarea> </td> <td> <input type="number" step="any" name="list['+box_nu+'][0][1]" class="form-control" ></td> <td> <input type="number" step="any" name="list['+box_nu+'][0][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger remove" id="dynamicTblRemoveRow" ></i></td></tr></tbody><tfoot></tfoot><tr><td colspan="4"></td><td colspan="1"><button onclick="addItem('+box_nu+')" class="btn btn-md btn-primary my-2 addItembtnDynamicTbl"   id="addBtn" type="button"> Add Item </button> </td></tr></table> </div>'; //New input field html 
+                var boxShipmentRow = '<div class="col-lg-12 my-3"><table class="table table-striped table-bordered" width="100%"  id="itemsTable"><tr><th colspan="3">Box '+sr+'</th><input type="hidden" name="box['+box_nu+'][0]" value="Box '+sr+'"> <th colspan="2"> <input type="number" step="any" name="box['+box_nu+'][1]" class="form-control" placeholder="Add Box weight" required> </th></tr><tr><th>Sr#</th><th>Item Name <span class="text-danger">*</span> </th><th>Qty <span class="text-danger">*</span></th> <th>Value (SAR) </th><th style="width:15%;"  class="text-center">Action</th></tr><tbody id="dynamicTblBody'+box_nu+'"><tr> <td> 1 </td> <td> <textarea type="text" name="list['+box_nu+'][0][0]" cols="20" rows="1" class="form-control" required></textarea> </td> <td> <input type="number" step="any" name="list['+box_nu+'][0][1]" class="form-control" required></td> <td> <input type="number" step="any" name="list['+box_nu+'][0][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger remove" id="dynamicTblRemoveRow" ></i></td></tr></tbody><tfoot></tfoot><tr><td colspan="4"></td><td colspan="1"><button onclick="addItem('+box_nu+')" class="btn btn-md btn-primary my-2 addItembtnDynamicTbl"   id="addBtn" type="button"> Add Item </button> </td></tr></table> </div>'; //New input field html 
                 boxTbleCounter.push(1); 
                 $(boxTbleWrapper).append(boxShipmentRow); 
             
@@ -415,7 +466,7 @@ function deleteRow(button) {
 
                 var sr = boxTbleCounter.length + 1;
                 var box_nu = sr - 1;
-                var boxShipmentRow = '<div class="col-lg-12 my-3"><table class="table table-striped table-bordered" width="100%"  id="itemsTable"><tr><th colspan="3">Box '+sr+'</th><input type="hidden" name="box['+box_nu+'][0]" value="Box 1"> <th colspan="2"> <input type="number" step="any" name="box['+box_nu+'][1]" class="form-control" placeholder="Add Box weight"> </th></tr><tr><th>Sr#</th><th>Item Name</th><th>Qty</th> <th>Value (SAR)</th><th style="width:15%;"  class="text-center">Action</th></tr><tbody id="dynamicTblBody'+box_nu+'"><tr> <td> 1 </td> <td> <textarea type="text" name="list['+box_nu+'][0][0]" cols="20" rows="1" class="form-control"></textarea> </td> <td> <input type="number" step="any" name="list['+box_nu+'][0][1]" class="form-control" ></td> <td> <input type="number" step="any" name="list['+box_nu+'][0][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger remove" id="dynamicTblRemoveRow" ></i></td></tr></tbody><tfoot></tfoot><tr><td colspan="4"></td><td colspan="1"><button onclick="addItem('+box_nu+')" class="btn btn-md btn-primary my-2 addItembtnDynamicTbl"   id="addBtn" type="button"> Add Item </button> </td></tr></table> </div>'; //New input field html 
+                var boxShipmentRow = '<div class="col-lg-12 my-3"><table class="table table-striped table-bordered" width="100%"  id="itemsTable"><tr><th colspan="3">Box '+sr+'</th><input type="hidden" name="box['+box_nu+'][0]" value="Box 1"> <th colspan="2"> <span class="text-danger">*</span><input type="number" step="any" name="box['+box_nu+'][1]" class="form-control" placeholder="Add Box weight" required> </th></tr><tr><th>Sr#</th><th>Item Name <span class="text-danger">*</span></th><th>Qty <span class="text-danger">*</span></th> <th>Value (SAR)</th><th style="width:15%;"  class="text-center">Action</th></tr><tbody id="dynamicTblBody'+box_nu+'"><tr> <td> 1 </td> <td> <textarea type="text" name="list['+box_nu+'][0][0]" cols="20" rows="1" class="form-control" required></textarea> </td> <td> <input type="number" step="any" name="list['+box_nu+'][0][1]" class="form-control" required></td> <td> <input type="number" step="any" name="list['+box_nu+'][0][2]" class="form-control" ></td> <td class="text-center"> <i onclick="deleteRow(this)" class="ti ti-trash me-1 text-danger remove" id="dynamicTblRemoveRow" ></i></td></tr></tbody><tfoot></tfoot><tr><td colspan="4"></td><td colspan="1"><button onclick="addItem('+box_nu+')" class="btn btn-md btn-primary my-2 addItembtnDynamicTbl"   id="addBtn" type="button"> Add Item </button> </td></tr></table> </div>'; //New input field html 
                 boxTbleCounter.push(1); 
                 $(boxTbleWrapper).append(boxShipmentRow); 
         
@@ -437,7 +488,7 @@ function deleteRow(button) {
         $(addButton).click(function(){
             if(counter < maxField){ 
                 var sr = counter + 1;
-                var fieldHTML = '<tr><td>'+ sr+'</td><td><textarea type="text" name="list[0]['+counter+'][0]" cols="20" rows="1" class="form-control"></textarea></td><td><input type="number" step="any" name="list[0]['+counter+'][1]" class="form-control" ></td><td> <input type="number" step="any" name="list[0]['+counter+'][2]" class="form-control" ></td> <td class="text-center"> <i class="ti ti-trash me-1 text-danger" id="defaultTblRemoveRow" ></i></td></tr>'; //New input field html 
+                var fieldHTML = '<tr><td>'+ sr+'</td><td><textarea type="text" name="list[0]['+counter+'][0]" cols="20" rows="1" class="form-control" required></textarea></td><td><input type="number" step="any" name="list[0]['+counter+'][1]" class="form-control" required></td><td> <input type="number" step="any" name="list[0]['+counter+'][2]" class="form-control" required></td> <td class="text-center"> <i class="ti ti-trash me-1 text-danger" id="defaultTblRemoveRow" ></i></td></tr>'; //New input field html 
                 counter++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html
             }

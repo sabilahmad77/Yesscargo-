@@ -33,8 +33,8 @@ class BranchClientsController extends Controller
              $data['branches'] = Branch::all();
         }
         if(Auth::user()->hasRole('Branch-Admin') ){
-            $user = User::with('branch')->find(Auth::user()->id);
-            $data['branches'] = BranchClients::with('branch')->where('branches_id', $user->branch->id)->first();
+            $data['user'] = User::with('branch')->find(Auth::user()->id);
+            //$data['branches'] = BranchClients::with('branch')->where('branches_id', $user->branch->id)->first();
         }
          
         return view('branch.clients.create')->with($data);

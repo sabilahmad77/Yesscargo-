@@ -10,7 +10,7 @@ class Invoice extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'invoice_no','cosignee_name', 'cosignee_email','cosignee_phone1', 'cosignee_phone2',
+        'invoice_no','sales_person','cosignee_name', 'cosignee_email','cosignee_phone1', 'cosignee_phone2',
 
         'cosignee_pincode', 'cosignee_city', 'cosignee_address',
      

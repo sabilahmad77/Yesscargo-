@@ -16,10 +16,10 @@ class BranchController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('Admin')){
-             $data['branches'] = Branch::with('user')->get();
+             $data['branches'] = Branch::with('user')->orderBy('id', 'DESC')->get();
             return view('branch.index')->with($data);
         }elseif(Auth::user()->hasRole('Branch-Admin')){
-             $data['branches'] = Branch::with('user')->where('users_id',Auth::user()->id)->get();
+             $data['branches'] = Branch::with('user')->where('users_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
             return view('branch.index')->with($data);
         }
         
