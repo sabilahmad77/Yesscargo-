@@ -25,31 +25,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/fonts/fontawesome.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/fonts/tabler-icons.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/fonts/flag-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/fontawesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/tabler-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/rtl/core.css ')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/rtl/theme-default.css ')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css ')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css ')}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css ')}}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css ')}}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/node-waves/node-waves.css ')}}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/typeahead-js/typeahead.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/node-waves/node-waves.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css ')}}" />
     <!-- Vendor -->
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css ')}}" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/pages/page-auth.css ')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css ')}}" />
     <!-- Helpers -->
     
     
-    <!--<script src="{{ asset('/public/assets/vendor/js/template-customizer.js') }}"></script>-->
-    <!--<script src="{{ asset('/public/assets/js/config.js ') }}"></script>-->
-    <!--<script src="{{ asset('/public/assets/vendor/js/helpers.js') }}"></script>-->
+    <!--<script src="{{ asset('/assets/vendor/js/template-customizer.js') }}"></script>-->
+    <!--<script src="{{ asset('/assets/js/config.js ') }}"></script>-->
+    <!--<script src="{{ asset('/assets/vendor/js/helpers.js') }}"></script>-->
   </head>
 
   <body>
@@ -60,9 +60,9 @@
         <!-- /Left Text -->
         <div class="d-none d-lg-flex col-lg-7 p-0">
           <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
-            <img src="{{ asset('public/assets/img/illustrations/auth-login-illustration-light.png')}}" alt="auth-login-cover" class="img-fluid my-5 auth-illustration"  data-app-light-img="illustrations/auth-login-illustration-light.png" data-app-dark-img="illustrations/auth-login-illustration-dark.png" />
+            <img src="{{ asset('assets/img/illustrations/auth-login-illustration-light.png')}}" alt="auth-login-cover" class="img-fluid my-5 auth-illustration"  data-app-light-img="illustrations/auth-login-illustration-light.png" data-app-dark-img="illustrations/auth-login-illustration-dark.png" />
 
-            <img src="{{ asset('public/assets/img/illustrations/bg-shape-image-light.png')}}" alt="auth-login-cover" class="platform-bg"  data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png"  />
+            <img src="{{ asset('assets/img/illustrations/bg-shape-image-light.png')}}" alt="auth-login-cover" class="platform-bg"  data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png"  />
 
           </div>
         </div>
@@ -104,7 +104,7 @@
                     />
                   </svg>
                 </span> -->
-                <img src="{{ asset('public/gen-img/Yes-Cargo-Logo.png') }}" style="width: 60%;">
+                <img src="{{ asset('gen-img/Yes-Cargo-Logo.png') }}" style="width: 60%;">
               </a>
             </div>
             <!-- /Logo -->
@@ -179,29 +179,29 @@
     
     
     
-    <script src="{{ asset('public/assets/vendor/libs/jquery/jquery.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/popper/popper.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/js/bootstrap.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/node-waves/node-waves.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js')}}"></script>
 
-    <script src="{{ asset('public/assets/vendor/libs/hammer/hammer.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/i18n/i18n.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/hammer/hammer.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
 
-    <script src="{{ asset('public/assets/vendor/js/menu.js')}}"></script>
+    <script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('public/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('public/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('public/assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/main.js')}}"></script>
 
     <!-- Page JS -->
-    <script src="{{ asset('public/assets/js/pages-auth.js')}}"></script>
+    <script src="{{ asset('assets/js/pages-auth.js')}}"></script>
     
   </body>
 </html>
