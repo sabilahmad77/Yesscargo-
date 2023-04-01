@@ -69,7 +69,7 @@
                 </select>
             @endif
             @if( Auth::user()->hasRole('Branch-Admin')  )
-                <input type="text" name="branch_id" class="form-control bg-light" value="{{ $user->branch->branch_name }}"   readonly/>
+                <input type="text" name="branch_id" class="form-control bg-light" value="{{ $branches->branch->branch_name }}"   readonly/>
             @endif
     </div>
     <div class="col-md-12">

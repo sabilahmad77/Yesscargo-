@@ -12,7 +12,7 @@
         @endcan
     </div>
     
-    <span style=" padding:0px 10px; 10px 10px;">
+    <div class="table-responsive text-nowrap">
         
         <table id="example" class="display nowrap" style="width:100%;">
         <thead>
@@ -58,7 +58,7 @@
             @endforeach
         </tbody>
         </table>
-    </span>
+    </div>
 </div>
 @section('script')
 <script>

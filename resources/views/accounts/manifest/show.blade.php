@@ -43,7 +43,18 @@
 
                 <div class="col-md-12 mb-md-0 mb-4 ps-0">
                     <table class="table table-bordered text-center">
-                        
+                        <tr>
+                            <th>ORIGIN</th>
+                            <th>Dammam</th>
+                            <th>FLIGHT#</th>
+                            <th>PACIFIC LOGISTICS SOLUTION</th>
+                        </tr>
+                        <tr>
+                            <th>DESTINATION</th>
+                            <th>DELHI</th>
+                            <th>DATE</th>
+                            <th>{{ $from .'---'. $to}}</th>
+                        </tr>
                         <tr>
                             <th>M AWB#</th>
                             <th>
@@ -60,8 +71,8 @@
                             <th>{{ $totalNoOfPieces }}</th>
                         </tr>
                         <tr>
-                            <th>DATE</th>
-                            <th>{{ $from .'---'. $to}}</th>
+                            <th></th>
+                            <th></th>
                             <th>TOTAL WEIGHT (kg)</th>
                             <th>{{ $boxesTotalWeight }}</th>
                         </tr>
@@ -124,6 +135,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

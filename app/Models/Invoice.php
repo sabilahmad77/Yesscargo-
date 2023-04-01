@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -10,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'invoice_no','sales_person','cosignee_name', 'cosignee_email','cosignee_phone1', 'cosignee_phone2',
+        'invoice_no','cosignee_name', 'cosignee_email','cosignee_phone1', 'cosignee_phone2',
 
         'cosignee_pincode', 'cosignee_city', 'cosignee_address',
      
@@ -19,7 +18,7 @@ class Invoice extends Model
         'sub_total','discount', 'tax','total',  'branch_admin_id', 'branch_id',
 
         'shipment_mode_slug','shipment_mode','customer_id','vat','discount',
-        'other_charges','bill_charges', 'packing_charges', 'box_charges','starting_date', 'consignee_country'
+        'other_charges','bill_charges', 'packing_charges', 'box_charges','starting_date', 'consignee_country', 'sales_person'
     ];
 
     public function invoice_item_details(){
@@ -51,3 +50,4 @@ class Invoice extends Model
     }
 
 }
+

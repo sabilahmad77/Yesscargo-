@@ -54,7 +54,7 @@
 
             @endforeach
             <td>
-                <b> {{  $netBill }} </b>
+                <b> {{  @$netBill }} </b>
             </td>
             <td>
                 <a href="{{ url('accounts/invoice/download/'.$record->id) }}"  class="btn btn-sm btn-primary me-1">Invoice</a>

@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceRequest;
 use ArPHP\I18N\Arabic;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Branch;
@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\BranchClients;
 use App\Models\InvoiceItemDetail;
 use App\Models\ShipmentBoxes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShipmentWeightCharges;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class InvoiceController extends Controller
 
         if(Auth::user()->hasRole('Admin')){
 
-            $data['InvoicesList']  = Invoice::with('boxes.boxes_items')->orderBy('id', 'DESC')->get();
+            $data['InvoicesList']  = Invoice::with('boxes.boxes_items')->get();
         }else{
             $data['InvoicesList']  = Invoice::with('boxes')->where('branch_admin_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
@@ -33,164 +34,67 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        //return 123;
-        //$data['item'] = Item::all();
-        $data['branchId'] = Branch::where('users_id', Auth::user()->id)->first();
-        $lastInvoice = Invoice::where('branch_id', $data['branchId']->id)->latest()->first();
-        $data['lastInvoiceNo'] = $lastInvoice->invoice_no ?? $data['branchId']->invoicing_serial;
-        ++$data['lastInvoiceNo'];
+        $branch = Branch::with('Clients')->where('users_id', Auth::id())->first();
+        $lastInvoiceNo = Invoice::query()->where('branch_id', $branch?->id)->orderByDesc('created_at')->value('invoice_no');
+        $lastInvoiceNo = $lastInvoiceNo ?? $branch->invoicing_serial;
+        $branchClients = $branch->Clients()->get();
 
-        return view('accounts.invoice.create')->with($data);
+        return view('accounts.invoice.create', compact('branch', 'lastInvoiceNo', 'branchClients'));
     }
 
 
-    public function store(Request $request)
+    public function store(InvoiceRequest $request)
     {
-
-        //return $request;
-        $data = $request->validate([
-            'sales_person' => 'required',
-            'starting_date' => 'required',
-            'shipment_mode' => 'required',
-            'due_dated' => 'required',
-
-            'name' => 'required',
-            'phone' => 'required',
-            'country' => 'required',
-            'city' => 'required',
-            'pincode' => 'required',
-            'address' => 'required',
-
-            'cosig_name' => 'required',
-            'cosig_phone1' => 'required',
-            'cosig_country' => 'required',
-            'cosig_city' => 'required',
-            'cosig_pinCode' => 'required',
-            'cosignee_address' => 'required',
-            
-         ], [
-             'sales_person.required' => 'Sales Person name field is required.',
-             'starting_date.required' => 'Starting Date field is required.',
-             'shipment_mode.required' => 'Shipment mode field is required.',
-             'due_dated.required' => 'Due Date field is required.',
-
-             'name.required' => 'Shipper name field is required.',
-             'phone.required' => 'Shipper phone field is required.',
-             'country.required' => 'Shipper country field is required.',
-             'city.required' => 'Shipper city field is required.',
-             'pincode.required' => 'Shipper pincode field is required.',
-             'address.required' => 'Shipper address field is required.',
-
-            'cosig_name.required' => 'Consignee name field is required.',
-            'cosig_phone1.required' => 'Consignee phone field is required.',
-            'cosig_country.required' => 'Consignee country field is required.',
-            'cosig_city.required' => 'Consignee city field is required.',
-            'cosig_pinCode.required' => 'Consignee pincode field is required.',
-            'cosignee_address.required' => 'Consignee address field is required.',
- 
-        //     'password.required' => 'Password field is required.',
-        //     'email.required' => 'Email field is required.',
-        //     'email.email' => 'Email field must be email address.'
-        ]);
-        $branchClientCheck = BranchClients::where(['name' => $request->name, 'branches_id' => $request->branch_id])->first();
-        if($branchClientCheck == false){
-            $data = array(
-                'branches_id'   => $request->branch_id,
-                'name'     => @$request->name,
-                'email' => @$request->email,
-                'country' => @$request->country,
-                'city' => @$request->city,
-                'pincode' => @$request->pincode,
-                'phone1' => @$request->phone,
-                'phone2' => @$request->phone2,
-                'address' => @$request->address,
-            );
-            $branchClient = BranchClients::updateOrCreate(['email' => $data['email']], $data);
-             $customerId = $branchClient->id;
-        }else{
-             $customerId = $branchClientCheck->id;
-        }
-        $shipmentModeSlug =  $request->branch_name.$request->shipment_mode[0].$request->invoice_no;
-        $data = array(
-            'invoice_no'           => $request->invoice_no,
-            'branch_admin_id'  => Auth::user()->id,
-            'branch_id' => $request->branch_id,
-            'cosignee_name'          => $request->cosig_name,
-            'cosignee_email' => $request->cosig_email,
-            'cosignee_phone1'     => $request->cosig_phone1,
-            'cosignee_phone2'  => $request->cosig_phone2,
-            'cosignee_pincode'        => $request->cosig_pinCode,
-            'consignee_country'        => $request->cosig_country,
-            'cosignee_city'        => $request->cosig_city,
-            'cosignee_address'        => $request->cosignee_address,
-            'starting_date'         => $request->starting_date,
-            'due_date' => $request->due_dated,
-            'invoice_note' => $request->invoice_note,
-            'shipment_mode' =>$request->shipment_mode,
-            'shipment_mode_slug' => $shipmentModeSlug,
-            'customer_id'           => $customerId,
-            'vat'          => $request->vat,
-            'discount'              => @$request->discount,
-            'other_charges'          => @$request->other_charges,
-            'bill_charges'              => $request->bill_charge,
-            'box_charges'  => $request->boxCharges,
-            'packing_charges'  => $request->packingCharge,
-            'sales_person'        => $request->sales_person
-
+        $branchClient = BranchClients::updateOrCreate(
+            [
+                'name'        => $request->get('shipper.name'),
+                'branches_id' => $request->branch_id,
+            ],
+            $request->get('shipper')
         );
 
-        $invoiceCreated = Invoice::create($data);
-        $invoiceId = $invoiceCreated->id;
-        //add and link multiple boxes to invoice
+        $customerId = $branchClient->id;
+
+        $branchName   = filter_var($request->branch_name, FILTER_SANITIZE_STRING);
+        $shipmentMode = filter_var($request->shipment_mode, FILTER_SANITIZE_STRING);
+        $invoiceNo    = filter_var($request->invoice_no, FILTER_SANITIZE_STRING);
+
+        // Concatenate the values using a separator
+        $shipmentModeSlug = $branchName . '' . $shipmentMode . '' . $invoiceNo;
+
+        $request->merge([
+            'branch_admin_id'    => Auth::id(),
+            'branch_id'          => $request->branch_id,
+            'shipment_mode_slug' => $shipmentModeSlug,
+            'customer_id'        => $customerId,
+            'total'              => 0,
+        ]);
+
+        $invoice = Invoice::create($request->except('shipper', 'box'));
+
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
-        foreach($request->box as $key => $boxData){
 
-            $boxesRecord =  array(
-                    'box_name'    => $boxData[0],
-                    'box_weight'  => $boxData[1],
-                    'invoice_id'  => $invoiceId,
-                    'current_shipment_rate_per_kg' => $ShipmentWeightChargesLatest->price,
-                    'box_charges_as_per_kg' => $ShipmentWeightChargesLatest->price * $boxData[1],
-                );
-                $shipmentBoxRecord = ShipmentBoxes::create($boxesRecord);
-                $shipmentBoxLatestId = $shipmentBoxRecord->id;
-            foreach($request->list[$key] as $index => $record){
+        foreach($request->box as $boxData){
+            $shipmentBox = ShipmentBoxes::create([
+                'box_name'                     => $boxData['box_name'],
+                'box_weight'                   => $boxData['box_weight'],
+                'invoice_id'                   => $invoice->id,
+                'current_shipment_rate_per_kg' => $ShipmentWeightChargesLatest->price,
+                'box_charges_as_per_kg'        => $ShipmentWeightChargesLatest->price * $boxData['box_weight'],
+            ]);
 
-                $boxesItemsRecord =  array(
-                    'item_name'    => $record['0'],
-                    'quantity'  => $record['1'],
-                    'item_per_cost'  => $record['2'],
-                    'invoices_id' => $invoiceId,
-                    'box_id'  => $shipmentBoxLatestId
-                );
-                $shipmentBoxRecord = InvoiceItemDetail::create($boxesItemsRecord);
-
+            foreach($boxData['items'] as $item){
+                InvoiceItemDetail::create([
+                        'item_name'     => $item['item_name'],
+                        'quantity'      => $item['quantity'],
+                        'item_per_cost' => $item['item_per_cost'],
+                        'invoices_id'   => $invoice->d,
+                        'box_id'        => $shipmentBox->id
+                    ]);
             }
 
         }
-        return redirect('accounts/invoice');
-
-        //latest shipment charges per Kg
-
-        // $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
-        // foreach($request->item_name as $key => $record){
-        //     $data = array(
-        //         'invoices_id'   => $invoiceId,
-        //         'item_name'     => @$request->item_name[$key],
-        //         'quantity' => @$request->item_quantity[$key],
-        //         'weight' => @$request->item_weight[$key],
-        //         'boxes' => @$request->item_box[$key],
-        //         // 'item_per_cost' => @$request->item_cost[$key],
-        //         'item_per_cost' => 0.00,
-        //         'discount' => 0.00,
-        //         'item_box' => @$request->item_discount[$key],
-        //         //'price' => @$request->item_cost[$key],
-        //         'price' => $request->item_cost[$key] ,
-        //     );
-        //     $invoiceCreated = InvoiceItemDetail::create($data);
-        // }
-
-        return redirect('accounts/invoice');
+        return redirect(route('invoice.index'));
     }
 
 
@@ -226,53 +130,22 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
-        $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'customer'])->find($id);
 
-        return view('accounts.invoice.edit', compact('invoice'));
+        $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'customer'])->find($id);
+        $branch = Branch::with('Clients')->where('users_id', Auth::id())->first();
+        $branchClients = $branch->Clients()->get();
+
+        return view('accounts.invoice.edit', compact('invoice', 'branchClients'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(InvoiceRequest $request, $id)
     {
-        $request->validate([
-            'invoice_no'        => ['required'],
-            'cosignee_name'     => ['required'],
-            'cosignee_email'    => ['required'],
-            'cosignee_phone1'   => ['required'],
-            'cosignee_phone2'   => ['required'],
-            'cosignee_pincode'  => ['required'],
-            'consignee_country' => ['required'],
-            'cosignee_city'     => ['required'],
-            'cosignee_address'  => ['required'],
-            'invoice_note'      => ['required'],
-            'due_date'          => ['required'],
-            'discount'          => ['required'],
-            'shipment_mode'     => ['required'],
-            'vat'               => ['required'],
-            'other_charges'     => ['required'],
-            'bill_charges'      => ['required'],
-            'packing_charges'   => ['required'],
-            'box_charges'       => ['required'],
-            'starting_date'     => ['required'],
-            'box'               => ['required'],
-            'list'              => ['required'],
-
-            'customer.name'   => 'required|string',
-            'customer.email'  => 'required|email',
-            'customer.phone1' => 'required|string',
-            'customer.phone2' => 'required|string',
-            'customer.country'=> 'required|string',
-            'customer.city'   => 'required|string',
-            'customer.pincode'=> 'required|string',
-            'customer.address'=> 'required|string',
-
-        ]);
-
         $invoice = Invoice::find($id);
 
-        $invoice->update($request->except('box', 'list', 'customer'));
+        $invoice->update($request->except('box', 'shipper', '_token', '_method'));
 
-        $invoice->customer->updateOrCreate(['email' => $request->customer['email']], $request->customer);
+        $invoice->customer()->update($request->shipper);
 
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
 
@@ -280,7 +153,7 @@ class InvoiceController extends Controller
 
             $box = $invoice->boxes()->updateOrCreate(
                 [
-                    'id' => $boxData['box_id']
+                    'id'                           => Arr::get($boxData, 'box_id', 0)
                 ],
                 [
                     'box_name'                     => $boxData['box_name'],
@@ -290,20 +163,16 @@ class InvoiceController extends Controller
                 ]
             );
 
-            if ($box) {
+            $box->boxes_items()->delete();
 
-                $box->boxes_items()->delete();
-
-                foreach ($request->list[$key] as $item) {
-
-                    $box->boxes_items()->create([
-                        'invoices_id'   => $invoice->id,
-                        'box_id'        => $box->id,
-                        'item_name'     => $item[0],
-                        'quantity'      => $item[1],
-                        'item_per_cost' => $item[2]
-                    ]);
-                }
+            foreach($boxData['items'] as $item) {
+                InvoiceItemDetail::create([
+                    'item_name'     => $item['item_name'],
+                    'quantity'      => $item['quantity'],
+                    'item_per_cost' => $item['item_per_cost'],
+                    'invoices_id'   => $invoice->d,
+                    'box_id'        => $box->id
+                ]);
             }
         }
 
@@ -360,3 +229,4 @@ class InvoiceController extends Controller
         return now()->addDays($days)->format('d/m/Y');
     }
 }
+

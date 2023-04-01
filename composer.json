@@ -6,8 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "aizhar777/numbers-to-words": "^1.0",
         "ar-php/ar-php": "^1.0",
         "barryvdh/laravel-dompdf": "^2.0",
+        "doctrine/dbal": "^3.6",
         "elibyy/tcpdf-laravel": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
         "h4cc/wkhtmltoimage-i386": "0.12.x",
