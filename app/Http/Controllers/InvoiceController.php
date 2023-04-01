@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\BranchClients;
 use App\Models\InvoiceItemDetail;
 use App\Models\ShipmentBoxes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShipmentWeightCharges;
 use Carbon\Carbon;
@@ -130,53 +131,22 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
-        $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'customer'])->find($id);
 
-        return view('accounts.invoice.edit', compact('invoice'));
+        $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'customer'])->find($id);
+        $branch = Branch::with('Clients')->where('users_id', Auth::id())->first();
+        $branchClients = $branch->Clients()->get();
+
+        return view('accounts.invoice.edit', compact('invoice', 'branchClients'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(InvoiceRequest $request, $id)
     {
-        $request->validate([
-            'invoice_no'        => ['required'],
-            'cosignee_name'     => ['required'],
-            'cosignee_email'    => ['required'],
-            'cosignee_phone1'   => ['required'],
-            'cosignee_phone2'   => ['required'],
-            'cosignee_pincode'  => ['required'],
-            'consignee_country' => ['required'],
-            'cosignee_city'     => ['required'],
-            'cosignee_address'  => ['required'],
-            'invoice_note'      => ['required'],
-            'due_date'          => ['required'],
-            'discount'          => ['required'],
-            'shipment_mode'     => ['required'],
-            'vat'               => ['required'],
-            'other_charges'     => ['required'],
-            'bill_charges'      => ['required'],
-            'packing_charges'   => ['required'],
-            'box_charges'       => ['required'],
-            'starting_date'     => ['required'],
-            'box'               => ['required'],
-            'list'              => ['required'],
-
-            'customer.name'   => 'required|string',
-            'customer.email'  => 'required|email',
-            'customer.phone1' => 'required|string',
-            'customer.phone2' => 'required|string',
-            'customer.country'=> 'required|string',
-            'customer.city'   => 'required|string',
-            'customer.pincode'=> 'required|string',
-            'customer.address'=> 'required|string',
-
-        ]);
-
         $invoice = Invoice::find($id);
 
-        $invoice->update($request->except('box', 'list', 'customer'));
+        $invoice->update($request->except('box', 'shipper', '_token', '_method'));
 
-        $invoice->customer->updateOrCreate(['email' => $request->customer['email']], $request->customer);
+        $invoice->customer()->update($request->shipper);
 
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
 
@@ -184,7 +154,7 @@ class InvoiceController extends Controller
 
             $box = $invoice->boxes()->updateOrCreate(
                 [
-                    'id' => $boxData['box_id']
+                    'id'                           => Arr::get($boxData, 'box_id', 0)
                 ],
                 [
                     'box_name'                     => $boxData['box_name'],
@@ -194,20 +164,16 @@ class InvoiceController extends Controller
                 ]
             );
 
-            if ($box) {
+            $box->boxes_items()->delete();
 
-                $box->boxes_items()->delete();
-
-                foreach ($request->list[$key] as $item) {
-
-                    $box->boxes_items()->create([
-                        'invoices_id'   => $invoice->id,
-                        'box_id'        => $box->id,
-                        'item_name'     => $item[0],
-                        'quantity'      => $item[1],
-                        'item_per_cost' => $item[2]
-                    ]);
-                }
+            foreach($boxData['items'] as $item) {
+                InvoiceItemDetail::create([
+                    'item_name'     => $item['item_name'],
+                    'quantity'      => $item['quantity'],
+                    'item_per_cost' => $item['item_per_cost'],
+                    'invoices_id'   => $invoice->d,
+                    'box_id'        => $box->id
+                ]);
             }
         }
 

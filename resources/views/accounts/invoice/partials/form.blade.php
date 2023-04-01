@@ -9,7 +9,7 @@
                 <td>
                     <label class="form-label" for="multicol-email">Invoice #</label>
                     <div class="input-group input-group-merge">
-                        <input type="text" name="invoice_no" class="form-control" value="{{ $lastInvoiceNo++ }}"
+                        <input type="text" name="invoice_no" class="form-control" value="{{ isset($invoice) ? $invoice->invoice_no :  $lastInvoiceNo++ }}"
                                id="invoiceId" readonly>
                     </div>
                 </td>
@@ -385,7 +385,7 @@
             <table class="table table-striped table-bordered" width="100%" id="itemsTable">
                 <tr>
                     <th colspan="3">Box {{ $loop->iteration }} </th>
-                    <input type="hidden" name="box[{{$key}}][box_name]" value="Box {{$loopiteration}}">
+                    <input type="hidden" name="box[{{$key}}][box_name]" value="Box {{$loop->iteration}}">
                     <input type="hidden" name="box[{{$key}}][box_id]" value="{{$box->id}}">
                     <th colspan="2">
                         <input type="number" step="any" name="box[{{$key}}][box_weight]"
