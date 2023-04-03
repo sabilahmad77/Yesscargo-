@@ -7,27 +7,17 @@
 <form action="{{ url('accounts/inventory') }}" method="POST"class="card-body">
     @csrf
     <!-- <h6>1. Account Details</h6> -->
-    <div class="row g-3">
-    <div class="col-md-12">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    </div>
-    </div>
+    
     <div class="row g-3">
     <div class="col-md-4">
-        <label class="form-label" for="multicol-username">Activity Name</label>
-        <input type="text" name="name"  class="form-control" placeholder="Add Activity Name" />
+        <label class="form-label" for="multicol-username">Activity Name <span class="text-danger">*</span></label>
+        <input type="text" name="name"  class="form-control" placeholder="Add Activity Name"  value="{{ old('name')  }}" />
+        @error('name')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
     </div>
     <div class="col-md-4">
-        <label class="form-label" for="multicol-username">Category</label>
+        <label class="form-label" for="multicol-username">Category <span class="text-danger">*</span></label>
         <select name="cat_id" class="form-control">
             
             @foreach($categories as $cat)
@@ -37,53 +27,41 @@
                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
             @endforeach
         </select>
+        @error('cat_id')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
     </div>
     <div class="col-md-4">
-        <label class="form-label" for="multicol-email">Amount</label>
+        <label class="form-label" for="multicol-email">Amount <span class="text-danger">*</span></label>
         <div class="input-group input-group-merge">
-            <input type="number" step="any" name="amount" id="multicol-email" class="form-control" placeholder="Add Amount"  />
+            <input type="number" step="any" name="amount" id="multicol-email" class="form-control"  value="{{ old('amount')  }}" placeholder="Add Amount"  />
         </div>
+        @error('amount')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
     </div>
     <div class="col-md-6">
         <label class="form-label" for="multicol-email">Paid To</label>
         <div class="input-group input-group-merge">
-            <input type="text" name="paid_to" id="multicol-email" class="form-control" placeholder="Add Reciver Name"  />
+            <input type="text" name="paid_to" id="multicol-email" class="form-control"  value="{{ old('paid_to')  }}" placeholder="Add Reciver Name"  />
         </div>
     </div>
     
-    <!-- <div class="col-md-6">
-        <label class="form-label" for="multicol-email">Paid to Email</label>
-            <div class="input-group input-group-merge">
-                <input type="text" name="paid_to_email" id="multicol-email" class="form-control" placeholder="Add Reciver Email"   />
-                
-            </div>
-    </div> -->
+    
     <div class="col-md-6">
-        <label class="form-label" for="multicol-email">Phone to Phone</label>
+        <label class="form-label" for="multicol-email">Phone Number</label>
             <div class="input-group input-group-merge">
-                <input type="text" name="paid_to_phone1"  class="form-control" placeholder="Add phone 1"/>
+                <input type="text" name="paid_to_phone1"  class="form-control"  value="{{ old('paid_to_phone1')  }}" placeholder="Add phone 1"/>
             </div>
     </div>
-    <!-- <div class="col-md-6">
-        <label class="form-label" for="multicol-email">Phone to Phone 2</label>
-            <div class="input-group input-group-merge">
-                <input type="text" name="paid_to_phone2"  class="form-control" placeholder="Add phone 2" />
-            </div>
-    </div> -->
+    
    
-    <!-- <div class="col-md-12">
-        <div class="form-password-toggle">
-        <label class="form-label" for="multicol-confirm-password">Short Description</label>
-        <div class="input-group input-group-merge">
-            <textarea type="text" name="short_description"  class="form-control" placeholder="Add Short Description"></textarea>
-        </div>
-        </div>
-    </div> -->
+   
     <div class="col-md-12">
         <div class="form-password-toggle">
         <label class="form-label" for="multicol-confirm-password">Description</label>
         <div class="input-group input-group-merge">
-            <textarea type="text" name="description" class="form-control" placeholder="Add  Description"></textarea>
+            <textarea type="text" name="description" class="form-control"  value="{{ old('description')  }}" placeholder="Add  Description">{{ old('description')  }}</textarea>
         </div>
         </div>
     </div>

@@ -48,7 +48,20 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->cat_id;
+        
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'cat_id' => 'required',
+            'amount' => 'required',
+            
+        ],[
+            'name.required' => 'Inventory Activity name is required.',
+            'cat_id.required' => 'Inventory Category is required.',
+            'amount.required' => 'Inventory Amount is required.',
+        ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }
         $branches = Branch::where('users_id',Auth::user()->id)->first();
         $validate = $request->validate([
             'cat_id' => 'required',

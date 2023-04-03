@@ -46,17 +46,11 @@ class BranchClientsController extends Controller
         //return $request;
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
             'phone1' => 'required',
-            'phone1' => 'required',
-            'phone2' => 'required',
-            'city' => 'required',
-            'pinCode' => 'required',
             'branch_id' => 'required',
-            'address' => 'required',
         ],[
-          //  'name.required' => 'Name is must.',
-          //  'name.min' => 'Name must have 5 char.',
+            'name.required' => 'Client name field is required!',
+            'phone1.min' => 'Phone field is required!',
         ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
@@ -73,6 +67,7 @@ class BranchClientsController extends Controller
             'branches_id' => $branchId,
             'name' => $request->name,
             'email' => $request->email,
+            'country'  => $request->country,
             'city' => $request->city,
             'pincode' => $request->pinCode,
             'phone1' => $request->phone1,

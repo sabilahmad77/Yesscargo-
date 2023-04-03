@@ -58,15 +58,12 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            //'branch_name' => 'required',
-            'userName' => 'required',
+            'invoice_serial' => 'required',
             'email' => '|email|unique:users',
-            //'password' => 'required|confirmed|min:5',
-            'phone' => 'required',
-            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'password' => 'required|min:8|confirmed',
         ], [
            // 'branch_name.required' => 'Branch Name field is required',
-            'userName.required' => 'User name field is required.',
+            'invoice_serial.required' => 'Invoice Serial field is required.',
             'password.required' => 'Password field is required.',
             'email.required' => 'Email field is required.',
            // 'user_uid.email' => 'User ID field must be email address.'

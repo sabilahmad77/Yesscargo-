@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('return-box/add', [ReturnBoxController::class, 'addItemToReturnBox']);
         Route::get('invoice/search', [ReturnBoxController::class, 'addFromInvoiceToReturnBox']);
         Route::get('shipments', [ShipmentsController::class, 'allShipmentsList']);
+        Route::get('shipments/update-status/{id}', [ShipmentsController::class, 'shipmentUpdateStatusForm']);
+        Route::post('shipments/change-status', [ShipmentsController::class, 'shipmentUpdateStatus']);
         Route::get('shipments/update-status', [ShipmentsController::class, 'shipmentStatusUpdate']);
         Route::POST('shipments/search', [ShipmentsController::class, 'searchShipment']);
         Route::resource('track-shipment', TrackShipmentController::class);

@@ -6,20 +6,18 @@
     <div class="card-header">
         <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Track /</span> Shipment</h4>
         
-        <form action="{{ url('cargo-master/shipments/search')}}" method="POST"class="card-body">
+        <form action="{{ url('cargo-master/shipments/search')}}" method="POST"class="card-body px-0">
             @csrf
             <!-- <h6>1. Account Details</h6> -->
             <div class="row g-3">
                 <div class="col-md-12">
+                    
+                   
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Opps!</strong> Please fill any field!
+                        
+                    </div>
                     @endif
                 </div>
             </div>
@@ -28,19 +26,13 @@
                     <label class="form-label" for="multicol-username">Invoice <span class="text-danger">*</span></label>
                     <input type="text"    name="invoice_number" id="multicol-username" class="form-control" Placeholder="Add Invoice No"/>
                 </div>
-                <!-- <div class="col-md-4">
-                    <label class="form-label" for="multicol-username">Shipper ID</label>
-                    <input type="text" name="branch_name" id="multicol-username" class="form-control" Placeholder="Add Shipper ID"/>
-                </div> -->
-                <div class="col-md-4">
-                    <label class="form-label" for="multicol-username">Consignee Phone</label>
-                    <input type="text" name="consignee_phone" id="multicol-username" class="form-control" Placeholder="Add Consignee Phone"/>
+                
+                <div class="col-md-4 pt-4">
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
                 </div>
             </div>
-            <div class="pt-4">
-            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-            </div>
+           
         </form>
     </div>
     

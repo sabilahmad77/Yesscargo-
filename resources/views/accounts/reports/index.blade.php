@@ -23,7 +23,7 @@
         @endif
         <div class="col-md-3">
             <label class="form-label" for="multicol-first-name">Report Type</label>
-            <select name="reportType" class="form-control">
+            <select name="reportType" class="form-control" required>
                 <option value="" selected>--Select Report Type--</option>
                 <option value="IncomeReport">Income Report</option>
                 <option value="InventoryReport">Inventory Report</option>
@@ -32,11 +32,11 @@
         </div>
         <div class="col-md-3">
             <label class="form-label" for="multicol-first-name">Start Date</label>
-            <input type="date" id="multicol-first-name" class="form-control" name="start_date" >
+            <input type="date" id="multicol-first-name" class="form-control" name="start_date" required>
         </div>
         <div class="col-md-3">
             <label class="form-label" for="multicol-last-name">End Date</label>
-            <input type="date" id="multicol-last-name" class="form-control" name="end_date">
+            <input type="date" id="multicol-last-name" class="form-control" name="end_date" required>
         </div>
         
         </div>

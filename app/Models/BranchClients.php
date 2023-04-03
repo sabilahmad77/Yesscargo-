@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BranchClients extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['branches_id', 'name','email', 'city', 'pincode', 'phone1',
+    protected $fillable = ['branches_id', 'name','email', 'country', 'city', 'pincode', 'phone1',
     'phone2','address', 'country'
     ];
 

@@ -30,16 +30,29 @@
                     <td>{{ $record->due_date }}</td>
                     <td>{{ $record->shipment_status }}</td>
                     <td>
+                        <a href="{{ url('cargo-master/shipments/update-status/'.$record->id ) }}"class="btn btn-sm btn-primary">Update</a>
+                    </td>
+                    {{--<td>
                         <select name="shipmentStatus" class="form-control updateStatus">
                             <!-- <option value="{{ $record->shipment_status }}" selected>{{ $record->shipment_status }}</option> -->
                             <option  selected>Update Status</option>
-                            <option value="Pending" >Pending</option>
-                            <option value="Packed">Packed</option>
-                            <option value="Loaded">Loaded</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
+                            <option value="Shipment Booked" >Shipment Booked</option>
+                            <option value="Ready to Load">Ready to Load </option>
+                            <option value="Moving to India">Moving to India</option>
+                            <option value="On the Way">On the Way</option>
+                            <option value="Shipmemnt Arrived">Shipmemnt Arrived</option>
+
+                            <option value="Waiting for Customs Clearance">Waiting for Customs Clearance</option>
+                            <option value="Shipment Cleared">Shipment Cleared</option>
+                            <option value="Shipment out for Delivery">Shipment out for Delivery</option>
+                            <option value="Shipment Delivared">Shipment Delivared</option>
+                            <option value="Custom Close">Custom Close</option>
+                            <option value="Custom Delay">Custom Delay</option>
+                            <option value="Reached at Port">Reached at Port</option>
+                            <option value="Action Taken on Complaint">Action Taken on Complaint</option>
+                            <option value="Shipment Connected">Shipment Connected</option>
                         </select>
-                    </td>
+                    </td>--}}
                 </tr>
             @endforeach
             </tbody>

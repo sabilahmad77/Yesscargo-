@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class ShipmentsController extends Controller
@@ -29,7 +30,16 @@ class ShipmentsController extends Controller
 
     public function searchShipment(Request $request){
    
-        //Invoice::where()->first();
+        $validate = Validator::make($request->all(), [
+            'invoice_number' => 'required',
+
+        ],[
+          //  'name.required' => 'Name is must.',
+         
+        ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }
         $q = Invoice::query();
 
         if ($request->filled('invoice_number'))
@@ -46,6 +56,24 @@ class ShipmentsController extends Controller
         $data['consignee_phone'] = $request->filled('consignee_phone');
         return view('cargo_master.track_shipment.index')->with($data);
 
+    }
 
+    public function shipmentUpdateStatusForm($id){
+        $invoice = Invoice::find($id);
+        return view('cargo_master.shipments.create',compact('invoice'));
+    }
+
+    public function shipmentUpdateStatus(Request $request){
+        $validate = $request->validate([
+            'shipmentStatus' => 'required',
+        ], [
+           // 'branch_name.required' => 'Branch Name field is required',
+            'shipmentStatus.required' => 'Shipment Status field is required.',
+
+        ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }
+        DB::table('shipment_status')
     }
 }
