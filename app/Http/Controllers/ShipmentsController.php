@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ShipmentsController extends Controller
 {
@@ -64,16 +66,18 @@ class ShipmentsController extends Controller
     }
 
     public function shipmentUpdateStatus(Request $request){
-        $validate = $request->validate([
-            'shipmentStatus' => 'required',
-        ], [
-           // 'branch_name.required' => 'Branch Name field is required',
-            'shipmentStatus.required' => 'Shipment Status field is required.',
 
+        $now = Carbon::now()->format('Y-m-d');
+        $statusUpdate =DB::table('shipment_status')->insert(
+            ['invoice_id' => $request->invoice_number, 'shipment_mode_slug'=> $request->shipment_mode_slug, 'dated' => Carbon::now()->toDateTimeString() , 'remarks' => $request->remarks , 'status' => $request->shipmentStatus]
+            );
+        $statusUpdateInInvoice =DB::table('invoices')->where('invoice_no', $request->invoice_number)
+        ->update([
+            'shipment_status' => $request->shipmentStatus
         ]);
-        if($validate->fails()){
-            return back()->withErrors($validate->errors())->withInput();
+        if($statusUpdate && $statusUpdateInInvoice){
+            return redirect('cargo-master/shipments')->with('success', 'Record updated successfully!');
         }
-        DB::table('shipment_status')
+            
     }
 }

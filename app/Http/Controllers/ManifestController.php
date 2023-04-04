@@ -34,7 +34,7 @@ class ManifestController extends Controller
         $branchId = $request->branchId;
         $from = $request->start_date;
         $to = $request->end_date;
-        $order =  Invoice::with('boxes','invoice_item_details','customer')->withCount('invoice_item_details')->whereRaw(
+        $order =  Invoice::with('boxes.boxes_items','customer')->whereRaw(
             "(created_at >= ? AND created_at <= ?)", 
             [
                 $from ." 00:00:00", 

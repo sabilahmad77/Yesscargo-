@@ -3,32 +3,7 @@
 @section('content')
 <div class="card mb-4">
     <h5 class="card-header">Profile Details</h5>
-    <!-- Account -->
-    <!-- <div class="card-body">
-        <div class="d-flex align-items-start align-items-sm-center gap-4">
-        <img src="../../assets/img/avatars/14.png" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
-        <div class="button-wrapper">
-            <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
-            <span class="d-none d-sm-block">Upload new photo</span>
-            <i class="ti ti-upload d-block d-sm-none"></i>
-            <input
-                type="file"
-                id="upload"
-                class="account-file-input"
-                hidden
-                accept="image/png, image/jpeg"
-            />
-            </label>
-            <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
-            <i class="ti ti-refresh-dot d-block d-sm-none"></i>
-            <span class="d-none d-sm-block">Reset</span>
-            </button>
-
-            <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
-        </div>
-        </div>
-    </div>
-    <hr class="my-0" /> -->
+    
     <div class="card-body">
         <form id="formAccountSettings" action="{{ url('users/'.$user->id ) }}" method="POST">
             @method('PATCH')
@@ -40,18 +15,34 @@
             </div>
            
             <div class="mb-3 col-md-6">
-            <label for="email" class="form-label">E-mail</label>
+            <label for="email" class="form-label">E-mail <span class="text-danger">*</span></label>
             <input class="form-control" type="text" id="email" name="email" value="{{ $user->email }}" />
+            @error('email')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
             </div>
             
             <div class="mb-3 col-md-6">
-                <label for="firstName" class="form-label">Password</label>
-                <input class="form-control" type="password"  name="password"   />
+                <label for="firstName" class="form-label">Password <span class="text-danger">*</span></label>
+                <div class="input-group input-group-merge">
+                    <input class="form-control" type="password" id="password" name="password"   value="{{ old('password') }}"/>
+                    <span class="input-group-text cursor-pointer" >
+                    <i class="ti ti-eye-off" onclick="previewPassword()"></i>
+                    </span>
+                </div>
+                @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="mb-3 col-md-6">
-                <label for="firstName" class="form-label">Confirm Password</label>
-                <input class="form-control" type="password"  name="confirm-password"   />
+                <label for="firstName" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                <div class="input-group input-group-merge">
+                <input class="form-control" type="password" id="password2"  name="confirm-password"   value="{{ old('confirm-password') }}"/>
+                <span class="input-group-text cursor-pointer" >
+                    <i class="ti ti-eye-off" onclick="previewPassword2()"></i>
+                    </span>
+                </div>
             </div>
 
             <div class="mb-3 col-md-6">
@@ -92,4 +83,24 @@
             </form>
         </div>
     </div> -->
+    @section('script')
+    <script>
+      function previewPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      } 
+      function previewPassword2() {
+        var x = document.getElementById("password2");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      } 
+    </script>
+    @endsection
 @endsection

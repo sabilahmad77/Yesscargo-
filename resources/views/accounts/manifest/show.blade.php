@@ -43,18 +43,7 @@
 
                 <div class="col-md-12 mb-md-0 mb-4 ps-0">
                     <table class="table table-bordered text-center">
-                        <tr>
-                            <th>ORIGIN</th>
-                            <th>Dammam</th>
-                            <th>FLIGHT#</th>
-                            <th>PACIFIC LOGISTICS SOLUTION</th>
-                        </tr>
-                        <tr>
-                            <th>DESTINATION</th>
-                            <th>DELHI</th>
-                            <th>DATE</th>
-                            <th>{{ $from .'---'. $to}}</th>
-                        </tr>
+                        
                         <tr>
                             <th>M AWB#</th>
                             <th>
@@ -71,8 +60,8 @@
                             <th>{{ $totalNoOfPieces }}</th>
                         </tr>
                         <tr>
-                            <th></th>
-                            <th></th>
+                            <th>DATE</th>
+                            <th>{{ $from .'---'. $to}}</th>
                             <th>TOTAL WEIGHT (kg)</th>
                             <th>{{ $boxesTotalWeight }}</th>
                         </tr>
@@ -85,13 +74,15 @@
                 <div class="col-md-12 mb-md-0 y-4 ps-0">
                     <table class="table table-bordered text-center mt-3">
                         <tr>
-                            <th>SNo.</th>
-                            <th>HWB CODE</th>
-                            <th>NUMBER OF BOXES</th>
-                            <th>RECEIVER NAME & ADDRESS</th>
+                            <th style="width: 1%;">S#</th>
+                            <th style="width: 1%;">HWB CODE</th>
+                            <th style="width: 1%;">NUMBER OF BOXES</th>
+                            <th>Shipper NAME & ADDRESS</th>
+                            <th>Consignee NAME & ADDRESS</th>
                             <th>DESCRIPTION OF ITEMS</th>
-                            <th>WEIGHT (kg)</th>
+                            <th style="width: 1%;">WEIGHT (kg)</th>
                         </tr>
+                        
                         @foreach($order as $key => $record)
                             <tr>
                                 <td>{{ ++$key }}</td>
@@ -108,8 +99,14 @@
                                     {{ $boxesCounter }}
                                 </td>
                                 <td>
-                                    <p class="mb-0">{{ $record->cosignee_name }}</p>
-                                    <p class="mb-0">{{ $record->cosignee_address }}</p>
+                                    <p class="mb-0 d-block">{{ $record->customer->name }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->customer->city }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->customer->address }}.</p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_name }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_city }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_address }}.</p>
                                 </td>
                                 <td>
                                     <ul>
@@ -126,6 +123,31 @@
                                         {{ $shipmentBoxesWeight }}
                                 </td>
                             </tr>
+                            @foreach($record->boxes as $invoiceBox)
+                            @foreach(@$invoiceBox->boxes_items as  $invoiceBoxItem)
+                            <tr class="bg-light">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $record->shipment_mode_slug }}</td>
+                                <td>{{ $invoiceBox->box_name}}</td>
+                                <td>
+                                    <p class="mb-0 d-block">{{ $record->customer->name }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->customer->city }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->customer->address }}.</p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_name }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_city }}.</p>
+                                    <p class="mb-0 d-block">{{ $record->cosignee_address }}.</p>
+                                </td>
+                                <td>
+                                    {{ $invoiceBoxItem->item_name }} ({{ $invoiceBoxItem->quantity  }}),
+                                </td>
+                                <td>
+                                    {{ $invoiceBox->box_weight }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endforeach
                         @endforeach
                         
                     </table>

@@ -2,14 +2,16 @@
 @section('title','Update Shipment Status')
 @section('content')
 <div class="card mb-4">
-  
+<div class="card-header">
+        <h4 class="fw-bold d-inline"><span class="text-muted fw-light">Shipments /</span> Status Update</h4>
+    </div>
 <form action="{{ url('cargo-master/shipments/change-status/') }}" method="POST" class="card-body">
     @csrf
-    
+    <input type="hidden" name="invoice_number" value="{{ $invoice->invoice_no }}">
     <div class="row g-3">
     <div class="col-md-3">
         <label class="form-label" for="multicol-username">HAWB</label>
-        <input type="text"   class="form-control" value="{{ $invoice->shipment_mode_slug }}" readonly/>
+        <input type="text" name="shipment_mode_slug"  class="form-control" value="{{ $invoice->shipment_mode_slug }}" readonly/>
     </div>
     <div class="col-md-3">
         <label class="form-label" for="multicol-email">Shipper Name </label>
@@ -32,17 +34,18 @@
                 
             </div>
     </div>
-    <div class="col-md-3">
-        <!-- <label class="form-label" for="multicol-email">UserName</label>
+    <div class="col-md-6">
+        <label class="form-label" for="multicol-email">Current Shipment Status</label>
             <div class="input-group input-group-merge">
-                <input type="text" name="userName"  class="form-control"  value="{{ old('userName')  }}" placeholder="Add UserName"  aria-describedby="multicol-email2" />
+                <input type="text"   class="form-control bg-light" value="{{ $invoice->shipment_status  }}" readonly />
                 
-            </div> -->
+            </div>
     </div>
-    <div class="col-sm-12">
-    <label class="form-label" for="multicol-email">Shipment Status</label>
-        <select name="shipmentStatus" class="form-control updateStatus">
-            
+    
+    <div class="col-sm-6">
+    <label class="form-label" for="multicol-email">Shipment Status <span class="text-danger">*</span></label>
+        <select name="shipmentStatus" class="form-control updateStatus" required="required">
+            <option value="">--Select Shipment Status--</option>
             <option value="Shipment Booked" >Shipment Booked</option>
             <option value="Ready to Load">Ready to Load </option>
             <option value="Moving to India">Moving to India</option>
@@ -65,9 +68,9 @@
     </div>
     <div class="col-sm-12">
         <label class="form-label" for="multicol-email">Remarks</label>
-        <textarea name="remarks" value="{{ old('remarks') }}" cols="30" rows="2" class="form-control">
-            {{ old('remarks') }}
-        </textarea>
+        <textarea name="remarks" value="{{ old('remarks') }}" cols="30" rows="1" class="form-control">{{ old('remarks') }}</textarea>
+            
+        
     </div>
     </div>
     <div class="pt-4">

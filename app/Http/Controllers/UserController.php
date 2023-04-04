@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-    
+use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
    
@@ -67,26 +68,33 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //return $request;
-        $this->validate($request, [
-            'name' => 'required',
+       
+        $validate = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email,'.$id,
-           // 'password' => 'same:confirm-password',
-           // 'roles' => 'required'
+        ],[
+            'email.required' => 'Email field is required!',
+           
         ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }
     
         $input = $request->all();
-        // if(!empty($input['password'])){ 
-        //     $input['password'] = Hash::make($input['password']);
-        // }else{
-        //     $input = Arr::except($input,array('password'));    
-        // }
-    
+        
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
         if($request->filled('password')) {
-            
+            $validate = Validator::make($request->all(), [
+                'password' => 'required|min:8|confirmed',
+            ],[
+                'password.required' => 'Password field is required!',
+               
+            ]);
+            if($validate->fails()){
+                return back()->withErrors($validate->errors())->withInput();
+            }
             $user->password =  Hash::make($request->password);
 
         } 

@@ -38,6 +38,11 @@ class Invoice extends Model
 
         return $this->hasMany(ShipmentBoxes::class, 'invoice_id','id');
     }
+    
+    public function shipmentStatuses(){
+
+        return $this->hasMany(shipmentStatuses::class, 'invoice_id','invoice_no');
+    }
 
     public function setDueDateAttribute($value)
     {

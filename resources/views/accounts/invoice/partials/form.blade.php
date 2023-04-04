@@ -75,7 +75,7 @@
 </div>
 
 <div class="row my-3">
-    <div class="col-sm-4  mb-sm-0 mb-4">
+    <div class="col-sm-4  mb-sm-0 ">
         <label class="form-label" for="searchUserByName">Search</label>
         <div class="input-group input-group-merge">
             <select class="form-control searchable" id="searchUserByName" name="searchUserByName">
@@ -86,7 +86,7 @@
             </select>
         </div>
     </div>
-    <div class="col-sm-2 mb-sm-0 mt-4">
+    <div class="col-sm-2 mb-sm-0">
         <label class="form-label" for="multicol-email"></label>
         <button type="button" class="btn btn-primary  searchByName">Select Shipper</button>
     </div>

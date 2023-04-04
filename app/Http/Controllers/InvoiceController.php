@@ -36,7 +36,8 @@ class InvoiceController extends Controller
     {
         $branch = Branch::with('Clients')->where('users_id', Auth::id())->first();
         $lastInvoiceNo = Invoice::query()->where('branch_id', $branch?->id)->orderByDesc('created_at')->value('invoice_no');
-        $lastInvoiceNo = $lastInvoiceNo ?? $branch->invoicing_serial;
+        $lastInvoiceNo = $lastInvoiceNo ?? --$branch->invoicing_serial;
+        ++$lastInvoiceNo;
         $branchClients = $branch->Clients()->get();
 
         return view('accounts.invoice.create', compact('branch', 'lastInvoiceNo', 'branchClients'));
@@ -60,14 +61,14 @@ class InvoiceController extends Controller
         $invoiceNo    = filter_var($request->invoice_no, FILTER_SANITIZE_STRING);
 
         // Concatenate the values using a separator
-        $shipmentModeSlug = $branchName . '' . $shipmentMode . '' . $invoiceNo;
+        $shipmentModeSlug =  $request->branch_name.$request->shipment_mode[0].$request->invoice_no;
 
         $request->merge([
             'branch_admin_id'    => Auth::id(),
             'branch_id'          => $request->branch_id,
             'shipment_mode_slug' => $shipmentModeSlug,
             'customer_id'        => $customerId,
-            'total'              => 0,
+            //'total'              => 0,
         ]);
 
         $invoice = Invoice::create($request->except('shipper', 'box'));
@@ -88,7 +89,7 @@ class InvoiceController extends Controller
                         'item_name'     => $item['item_name'],
                         'quantity'      => $item['quantity'],
                         'item_per_cost' => $item['item_per_cost'],
-                        'invoices_id'   => $invoice->d,
+                        'invoices_id'   => $invoice->id,
                         'box_id'        => $shipmentBox->id
                     ]);
             }
