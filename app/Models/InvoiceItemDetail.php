@@ -14,4 +14,7 @@ class InvoiceItemDetail extends Model
     public function box(){
         return $this->belongsTo(ShipmentBoxes::class, 'box_id');
     }
+    // public function ShipmentboxItemList(){
+    //     return $this->hasMany(InvoiceItemDetail::class, 'invoice_item_details_id', 'box_id');
+    // }
 }

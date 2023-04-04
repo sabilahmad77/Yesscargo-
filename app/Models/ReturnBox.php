@@ -18,9 +18,12 @@ class ReturnBox extends Model
         return $this->belongsTo(Invoice::class, 'invoices_id');
     }
 
-    public function invoiceItem(){
-        return $this->belongsTo(InvoiceItemDetail::class, 'invoice_item_details_id');
+    public function Shipmentbox(){
+        return $this->belongsTo(ShipmentBoxes::class, 'invoice_item_details_id');
     }
+    // public function ShipmentboxItemList(){
+    //     return $this->hasMany(InvoiceItemDetail::class, 'invoice_item_details_id', 'box_id');
+    // }
     
 
 }

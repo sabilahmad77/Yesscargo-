@@ -1,7 +1,7 @@
 @if(isset($invoice))
 <div class="row g-3 ">
     <div class="col-md-12">
-        <table class="table border-top bg-light">
+        <table class="table border-top bordered">
             <thead>
                 <th>Invoice#</th>
                 <th>Starting Date</th>
@@ -26,38 +26,35 @@
 
 <div class="row g-3 mt-3">
     <div class="col-md-12">
-        <table class="table  border-top bg-light">
+        <table class="table  border-top bordered">
             <thead>
                 <th>SR#</th>
+                <th>Action</th>
+                <th>Box</th>
+                <th>Weight (kg)</th>
+                <th>Price  (SAR)</th>
                 <th>Description Of Goods</th>
-                <th>Boxes</th>
-                <th>PCS</th>
-                <th>Weight</th>
-                <th>Price</th>
-                <!-- <th>Shipper</th>
-                <th>Consignee</th>
-                <th>Consignee Address</th> -->
-               
             </thead>
             <tbody>
-                @foreach($invoice->invoice_item_details as $item)
-                @if($item->return_box === 1)
-                        @continue
-                @endif
+                @foreach($invoice->boxes as $box)
+                    @if($box->return_box === 1)
+                        @continue;
+                    @endif
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>
                         <label class="form-check-label custom-option-content" for="customCheckTemp4">
-                            <input class="form-check-input" type="checkbox" value="" id="customCheckTemp4" onclick='myclicktest({{ $item->id }}, {{ $invoice->id }},{{ $invoice->branch_id }} );' >
+                            <input class="form-check-input" type="checkbox" value="" id="customCheckTemp4" onclick='myclicktest({{ $box->id }}, {{ $invoice->id }},{{ $invoice->branch_id }} );' >
                         </label>
                     </td>
-                    <td>{{ $item->item_name }}</td>
-                    <td>{{ $item->boxes }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ $item->weight }}</td>
-                    <td>{{ $item->price }}</td>
-                    <!-- <td>{{ $invoice->customer->name }}</td>
-                    <td>{{ $invoice->cosignee_name }}</td>
-                    <td>{{ $invoice->cosignee_address }}</td> -->
+                    <td>{{ $box->box_name }}</td>
+                    <td>{{ $box->box_weight }}</td>
+                    <td>{{ $box->box_charges_as_per_kg }}</td>
+                    <td>
+                        @foreach($box->boxes_items as $item)
+                            {{ $item->item_name }}   ( {{ $item->item_per_cost }} ) <br>
+                        @endforeach
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
