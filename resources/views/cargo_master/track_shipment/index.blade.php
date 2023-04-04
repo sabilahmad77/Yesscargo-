@@ -56,8 +56,8 @@
                 <td >{{ $shipment->shipment_mode_slug }}</td>
                 <td>{{ $shipment->customer->city }}</td>
                 <td>{{ $shipment->cosignee_name }}</td>
-                <td>{{ $shipment->starting_date }}</td>
-                <td>{{ $shipment->due_date }}</td>
+                <td>{{ date('d/m/Y', strtotime($shipment->starting_date)) }}</td>
+                <td>{{ date('d/m/Y', strtotime($shipment->due_date)) }}</td>
                 <td>
                     
                     <select name="shipmentStatus" class="form-control updateStatus bg-light">

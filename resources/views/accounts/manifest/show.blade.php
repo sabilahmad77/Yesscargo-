@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-4 " style="text-align:right;">
 
-                    <h3 class=" mb-1 mt-3">Manifest Report</h3>
+                    <!-- <h3 class=" mb-1 mt-3">Manifest Report</h3> -->
                     <form action="{{ url('accounts/download_manifest_excell') }}" method="POST" class="d-inline">
                         @csrf
                         <input type="hidden" name="start_date" value="{{ $from }}">
@@ -45,7 +45,7 @@
                     <table class="table table-bordered text-center">
                         
                         <tr>
-                            <th>M AWB#</th>
+                            <th>HAWB#</th>
                             <th>
                             @foreach ($order as $k => $v)
                                 @if($loop->first)
@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <th>DATE</th>
-                            <th>{{ $from .'---'. $to}}</th>
+                            <th>{{  date('d/m/Y', strtotime($from)) .'---'. date('d/m/Y', strtotime($to)) }}</th>
                             <th>TOTAL WEIGHT (kg)</th>
                             <th>{{ $boxesTotalWeight }}</th>
                         </tr>
@@ -72,22 +72,27 @@
             <div class="row m-sm-1  " style="margin-top:5px;">
 
                 <div class="col-md-12 mb-md-0 y-4 ps-0">
-                    <table class="table table-bordered text-center mt-3">
+                    <table class="table table-bordered  mt-3">
                         <tr>
-                            <th style="width: 1%;">S#</th>
-                            <th style="width: 1%;">HWB CODE</th>
+                            <th style="width: 1%;">Sr #</th>
+                            <th style="width: 1%;">HAWB CODE</th>
                             <th style="width: 1%;">NUMBER OF BOXES</th>
-                            <th>Shipper NAME & ADDRESS</th>
-                            <th>Consignee NAME & ADDRESS</th>
+                            <th>Shipper Details</th>
+                            <th>Consignee Detail</th>
                             <th>DESCRIPTION OF ITEMS</th>
                             <th style="width: 1%;">WEIGHT (kg)</th>
                         </tr>
-                        
+                        @php 
+                            $counter = 0;
+                        @endphp
                         @foreach($order as $key => $record)
-                            <tr>
-                                <td>{{ ++$key }}</td>
+                            {{--<tr>
+                                @php 
+                                    ++$counter;
+                                @endphp
+                                <td>{{ $counter }}</td>
                                 <td>{{ $record->shipment_mode_slug }}</td>
-                                <td style="text-align:center;">
+                                <td>
                                     @php
                                         $shipmentBoxesWeight = 0;$boxesCounter = 0;
                                     @endphp
@@ -99,57 +104,74 @@
                                     {{ $boxesCounter }}
                                 </td>
                                 <td>
-                                    <p class="mb-0 d-block">{{ $record->customer->name }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->customer->city }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->customer->address }}.</p>
+                                    {{ $record->customer->name }}<br>
+                                    {{ $record->customer->email }}<br>
+                                    {{ $record->customer->phone1 }}<br>
+                                    {{ $record->customer->phone2 }}<br>
+                                    {{ $record->customer->pincode }}<br>
+                                    {{ $record->customer->city }}<br>
+                                    {{ $record->customer->address }}<br>
                                 </td>
                                 <td>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_name }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_city }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_address }}.</p>
+                                    {{ $record->cosignee_name }}<br>
+                                    {{ $record->cosignee_email }}<br>
+                                    {{ $record->cosignee_phone1 }}<br>
+                                    {{ $record->cosignee_phone2 }}<br>
+                                    {{ $record->cosignee_pincode }}<br>
+                                    {{ $record->cosignee_city }}<br>
+                                    {{ $record->cosignee_address }}<br>
                                 </td>
                                 <td>
-                                    <ul>
+                                    <ul class="p-0">
                                        
                                         @foreach($record->invoice_item_details as $check)
-                                        <li style="list-style-type: none;">
+                                        <li style="list-style-type: none;text-align:left;">
                                             {{ $check->item_name }} ({{ $check->quantity  }}),
                                            
                                         </li>
                                         @endforeach
                                     </ul>
                                 </td>
-                                <td style="text-align:center;">
+                                <td >
                                         {{ $shipmentBoxesWeight }}
                                 </td>
-                            </tr>
-                            @foreach($record->boxes as $invoiceBox)
-                            @foreach(@$invoiceBox->boxes_items as  $invoiceBoxItem)
-                            <tr class="bg-light">
-                                <td>{{ $loop->iteration }}</td>
+                            </tr>--}}
+                            @foreach($record->boxes as $index => $invoiceBox)
+                            <tr style="border: 1px solid black;">
+                                <td>{{ ++$counter }}</td>
                                 <td>{{ $record->shipment_mode_slug }}</td>
                                 <td>{{ $invoiceBox->box_name}}</td>
                                 <td>
-                                    <p class="mb-0 d-block">{{ $record->customer->name }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->customer->city }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->customer->address }}.</p>
+                                    {{ $record->customer->name }}<br>
+                                    {{ $record->customer->email }}<br>
+                                    {{ $record->customer->phone1 }}<br>
+                                    {{ $record->customer->phone2 }}<br>
+                                    {{ $record->customer->pincode }}<br>
+                                    {{ $record->customer->city }}<br>
+                                    {{ $record->customer->address }}<br>
+                                    
                                 </td>
                                 <td>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_name }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_city }}.</p>
-                                    <p class="mb-0 d-block">{{ $record->cosignee_address }}.</p>
+                                    {{ $record->cosignee_name }}<br>
+                                    {{ $record->cosignee_email }}<br>
+                                    {{ $record->cosignee_phone1 }}<br>
+                                    {{ $record->cosignee_phone2 }}<br>
+                                    {{ $record->cosignee_pincode }}<br>
+                                    {{ $record->cosignee_city }}<br>
+                                    {{ $record->cosignee_address }}<br>
+                                    
                                 </td>
                                 <td>
-                                    {{ $invoiceBoxItem->item_name }} ({{ $invoiceBoxItem->quantity  }}),
+                                    @foreach(@$invoiceBox->boxes_items as  $invoiceBoxItem)
+                                        {{ $invoiceBoxItem->item_name }} ({{ $invoiceBoxItem->quantity  }})<br>
+                                    @endforeach
                                 </td>
                                 <td>
                                     {{ $invoiceBox->box_weight }}
                                 </td>
                             </tr>
                             @endforeach
-                            @endforeach
                         @endforeach
-                        
                     </table>
                 </div>
             </div>

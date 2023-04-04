@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Invoice;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use App\Models\BranchClients;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -38,15 +39,18 @@ class HomeController extends Controller
 
             return view('welcome')->with($data);
        }elseif(Auth::user()->hasRole('Branch-Admin')){
-            $data['BranchWithClientsAndInvoiceCount'] = Branch::withCount('Clients','Invoices')->where('users_id', Auth::user()->id)->first();
+
+            $data['BranchWithInvoiceCount'] = Branch::withCount('Invoices')->where('users_id', Auth::user()->id)->first();
             $data['branchAdmin'] =  Branch::where(['status' => 1, 'users_id' => Auth::user()->id ])->first();
             
             $branchId = Branch::where('users_id',Auth::user()->id)->first();
             $data['branchInvetories'] = Inventory::where('branch_id',$branchId->id)->get();
 
-            $data['BranchIncome'] =  Invoice::with('invoice_item_details')->where('branch_id', $branchId->id)->get();
-                
+            $branchClients = BranchClients::where('branches_id', $branchId->id)->get(); 
+            $data['branchClientsCount'] = $branchClients->count();
             
+            $data['BranchIncome'] =  Invoice::with('boxes')->where('branch_id', $branchId->id)->get();
+                
             return view('welcome')->with($data);
        }
       

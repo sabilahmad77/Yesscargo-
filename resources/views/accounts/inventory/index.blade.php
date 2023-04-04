@@ -41,7 +41,7 @@
         @if( Auth::user()->hasRole('Admin')  )
             <td>{{ $invetory->branch->branch_name }}</td>
         @endif
-        <td>{{ $invetory->created_at }}</td>
+        <td>{{ $invetory->created_at->format('d/m/Y') }}</td>
         <td>
             <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">

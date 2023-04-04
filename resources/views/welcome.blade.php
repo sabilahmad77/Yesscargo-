@@ -228,7 +228,7 @@
         <div id="salesLastYear" style="min-height: 78px;"><div id="apexchartsy8df3g7k" class="apexcharts-canvas apexchartsy8df3g7k apexcharts-theme-light" style="width: 154px; height: 78px;"><svg id="SvgjsSvg1001" width="154" height="78" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent none repeat scroll 0% 0%;"><g id="SvgjsG1003" class="apexcharts-inner apexcharts-graphical" transform="translate(0, 0)"><defs id="SvgjsDefs1002"><clipPath id="gridRectMasky8df3g7k"><rect id="SvgjsRect1008" width="160" height="80" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMasky8df3g7k"></clipPath><clipPath id="nonForecastMasky8df3g7k"></clipPath><clipPath id="gridRectMarkerMasky8df3g7k"><rect id="SvgjsRect1009" width="158" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><linearGradient id="SvgjsLinearGradient1014" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1015" stop-opacity="0.6" stop-color="rgba(40,199,111,0.6)" offset="0"></stop><stop id="SvgjsStop1016" stop-opacity="0.25" stop-color="rgba(212,244,226,0.25)" offset="1"></stop><stop id="SvgjsStop1017" stop-opacity="0.25" stop-color="rgba(212,244,226,0.25)" offset="1"></stop></linearGradient></defs><line id="SvgjsLine1007" x1="0" y1="0" x2="0" y2="78" stroke="#b6b6b6" stroke-dasharray="3" stroke-linecap="butt" class="apexcharts-xcrosshairs" x="0" y="0" width="1" height="78" fill="#b1b9c4" filter="none" fill-opacity="0.9" stroke-width="1"></line><g id="SvgjsG1020" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1021" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"></g></g><g id="SvgjsG1027" class="apexcharts-grid"><g id="SvgjsG1028" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1030" x1="0" y1="0" x2="154" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1031" x1="0" y1="15.6" x2="154" y2="15.6" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1032" x1="0" y1="31.2" x2="154" y2="31.2" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1033" x1="0" y1="46.8" x2="154" y2="46.8" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1034" x1="0" y1="62.4" x2="154" y2="62.4" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1035" x1="0" y1="78" x2="154" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1029" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1037" x1="0" y1="78" x2="154" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1036" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1010" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG1011" class="apexcharts-series" seriesName="seriesx1" data:longestSeries="true" rel="1" data:realIndex="0"><path id="SvgjsPath1018" d="M0 78L0 43.333333333333336C17.966666666666665 43.333333333333336 33.366666666666674 68.46666666666667 51.333333333333336 68.46666666666667C69.3 68.46666666666667 84.7 8.666666666666671 102.66666666666667 8.666666666666671C120.63333333333334 8.666666666666671 136.03333333333333 34.666666666666664 154 34.666666666666664C154 34.666666666666664 154 34.666666666666664 154 78M154 34.666666666666664C154 34.666666666666664 154 34.666666666666664 154 34.666666666666664 " fill="url(#SvgjsLinearGradient1014)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMasky8df3g7k)" pathTo="M 0 78L 0 43.333333333333336C 17.966666666666665 43.333333333333336 33.366666666666674 68.46666666666667 51.333333333333336 68.46666666666667C 69.3 68.46666666666667 84.7 8.666666666666671 102.66666666666667 8.666666666666671C 120.63333333333334 8.666666666666671 136.03333333333333 34.666666666666664 154 34.666666666666664C 154 34.666666666666664 154 34.666666666666664 154 78M 154 34.666666666666664z" pathFrom="M -1 78L -1 78L 51.333333333333336 78L 102.66666666666667 78L 154 78"></path><path id="SvgjsPath1019" d="M0 43.333333333333336C17.966666666666665 43.333333333333336 33.366666666666674 68.46666666666667 51.333333333333336 68.46666666666667C69.3 68.46666666666667 84.7 8.666666666666671 102.66666666666667 8.666666666666671C120.63333333333335 8.666666666666671 136.03333333333333 34.666666666666664 154 34.666666666666664C154 34.666666666666664 154 34.666666666666664 154 34.666666666666664 " fill="none" fill-opacity="1" stroke="#28c76f" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMasky8df3g7k)" pathTo="M 0 43.333333333333336C 17.966666666666665 43.333333333333336 33.366666666666674 68.46666666666667 51.333333333333336 68.46666666666667C 69.3 68.46666666666667 84.7 8.666666666666671 102.66666666666667 8.666666666666671C 120.63333333333334 8.666666666666671 136.03333333333333 34.666666666666664 154 34.666666666666664" pathFrom="M -1 78L -1 78L 51.333333333333336 78L 102.66666666666667 78L 154 78"></path><g id="SvgjsG1012" class="apexcharts-series-markers-wrap" data:realIndex="0"></g></g><g id="SvgjsG1013" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1038" x1="0" y1="0" x2="154" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1039" x1="0" y1="0" x2="154" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1040" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1041" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1042" class="apexcharts-point-annotations"></g></g><rect id="SvgjsRect1006" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe"></rect><g id="SvgjsG1026" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1004" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 39px;"></div></div></div>
         <div class="card-body pt-0">
           <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-            <h4 class="mb-0">{{ $BranchWithClientsAndInvoiceCount->clients_count }}</h4>
+            <h4 class="mb-0">{{ $branchClientsCount }}</h4>
             <!-- <small class="text-danger">-16.2%</small> -->
           </div>
         </div>
@@ -278,7 +278,7 @@
           <div class="badge p-2 bg-label-info mb-2 rounded"><i class="ti ti-chart-bar ti-md"></i></div>
           <h5 class="card-title mb-1 pt-2">Invoices</h5>
           <!-- <small class="text-muted">Last week</small> -->
-          <h4 class="mt-3">{{ $BranchWithClientsAndInvoiceCount->invoices_count }}</h4>
+          <h4 class="mt-3">{{ $BranchWithInvoiceCount->invoices_count }}</h4>
           <!-- <div class="pt-1">
             <span class="badge bg-label-secondary d-none">+25.2%</span>
           </div> -->
@@ -316,19 +316,20 @@
                 <p class="mb-0">Income</p>
                 <span class="badge bg-label-success p-1 rounded"><i class="ti ti-link ti-xs"></i></span>
               </div>
+              @php  $totalPrice = 0; $InvoiceAmount = 0; @endphp
               @foreach($BranchIncome as $order)
                 @php 
-                    $totalPrice = 0;
-                    foreach($order->invoice_item_details as $item){
-                        $totalPrice += $item->price;
-                    }
+                    
+                    foreach($order->boxes as $item){
+                        $totalPrice += $item->box_charges_as_per_kg;
+
+                    
                     $subTotal = $totalPrice + $order->packing_charges + $order->box_charges + $order->bill_charges + $order->other_charges - $order->discount;
                     
                     $VatInPercent = $order->vat;
                     $vatPercentAmount = ($subTotal / 100) * $order->vat;
                     $InvoiceAmount = $vatPercentAmount + $subTotal;
-                    $InvoiceAmount;
-                   // $InvoiceAmount += $InvoiceAmount;
+                  }
                     
                 @endphp
               @endforeach

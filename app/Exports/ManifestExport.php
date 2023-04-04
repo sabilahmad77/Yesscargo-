@@ -169,7 +169,7 @@ class ManifestExport implements FromView
         //     $data['totalNoOfBoxes'] = $totalNoOfPieces;
         //     $data['from'] = $this->from;
         //     $data['to'] = $this->to;
-        $data['order'] =  Invoice::with('boxes','invoice_item_details','customer')->withCount('invoice_item_details')->whereRaw(
+        $data['order'] =  Invoice::with('boxes.boxes_items','customer')->whereRaw(
             "(created_at >= ? AND created_at <= ?)", 
             [
                 $this->from ." 00:00:00", 

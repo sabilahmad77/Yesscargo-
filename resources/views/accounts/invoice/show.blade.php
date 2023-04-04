@@ -20,7 +20,7 @@
                             <td class="font-bold text-primary">DATE</td>
                         </tr>
                         <tr>
-                            <th>{{ $invoice->created_at }}</th>
+                            <th>{{ $invoice->created_at->format('d/m/Y') }}</th>
                         </tr>
                         <tr>
                             <td class="font-bold text-primary">Shipment Mode</td>

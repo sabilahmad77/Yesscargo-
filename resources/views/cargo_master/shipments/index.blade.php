@@ -26,7 +26,7 @@
                     <td>{{ $record->shipment_mode_slug }}</td>
                     <td>{{ $record->customer->city }}</td>
                     <td>{{ $record->cosignee_city }}</td>
-                    <td>{{ $record->starting_date }}</td>
+                    <td>{{ date('d/m/Y', strtotime($record->starting_date)) }}</td>
                     <td>{{ $record->due_date }}</td>
                     <td>{{ $record->shipment_status }}</td>
                     <td>

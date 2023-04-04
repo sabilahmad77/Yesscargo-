@@ -54,5 +54,15 @@ class Invoice extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
+    // public function setStartingDateAttribute($value)
+    // {
+    //     $this->attributes['starting_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    // }
+
+    // public function getStartingDateAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('d/m/Y');
+    // }
+
 }
 

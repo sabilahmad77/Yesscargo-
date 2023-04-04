@@ -31,8 +31,8 @@
         @foreach($income as $rec)
         <tr>
             <td>{{ $rec->shipment_mode_slug }}</td>
-            <td>{{ $rec->starting_date }}</td>
-            <td>{{ $rec->due_date }}</td>
+            <td>{{ date('d/m/Y', strtotime($rec->starting_date)) }}</td>
+            <td>{{ date('d/m/Y', strtotime($rec->due_date)) }}</td>
             <td>{{ $rec->customer->name }}</td>
             <td> 
                 <p class="mb-0">{{ $rec->cosignee_name }}</p>

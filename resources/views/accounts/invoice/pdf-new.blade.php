@@ -45,7 +45,7 @@
                 <p style="font-size:12px;margin:0px;">Near Ladies Market Behind New CityFlower <br> Supermarket,
                     Seiko,Dammam,Saudi Arabia <br>
                     0138838835, 0548240456, 0573165148 <br>
-                    www.yescargosaudi.com
+                    www.yescargosaudi.in
 
                 </p>
             </td>
@@ -68,7 +68,7 @@
                     </tr>
 
                     <tr>
-                        <td style="font-size:13px;">{{ $invoice->starting_date }}</td>
+                        <td style="font-size:13px;">{{ $invoice->created_at->format('d/m/Y') }}</td>
                     </tr>
 
                     <tr>

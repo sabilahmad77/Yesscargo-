@@ -2,7 +2,7 @@
           <div class="app-brand demo">
             <a href="{{ url('/') }}" class="app-brand-link">
              
-              <img src="{{ asset('public/gen-img/Yes-Cargo-Logo.png') }}" style="width: 100%;">
+              <img src="{{ asset('gen-img/Yes-Cargo-Logo.png') }}" style="width: 100%;">
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -63,12 +63,12 @@
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item {{Request::is(['accounts/invoice/*']) ? 'active' : ''}}">
+                <li class="menu-item {{Request::is(['accounts/invoice', 'accounts/invoice/*']) ? 'active' : ''}}">
                   <a href="{{ url('accounts/invoice') }}" class="menu-link">
                     <div data-i18n="Invoice">Invoice</div>
                   </a>
                 </li>
-                <li class="menu-item {{Request::is(['accounts/manifest/*']) ? 'active' : ''}}">
+                <li class="menu-item {{Request::is(['accounts/manifest','accounts/manifest/*']) ? 'active' : ''}}">
                   <a href="{{ url('accounts/manifest') }}" class="menu-link">
                     <div data-i18n="Manifest">Manifest</div>
                   </a>
