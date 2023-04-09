@@ -21,7 +21,6 @@
                 <div data-i18n="Dashboards">Dashboards</div>
                 <!-- <div class="badge bg-label-primary rounded-pill ms-auto">3</div> -->
               </a>
-            
             </li>
             <li class="menu-item {{Request::is(['clients','clients/*']) ? 'active' : ''}}">
               <a href="{{ url('clients') }}" class="menu-link">
@@ -104,12 +103,12 @@
                     <div data-i18n="Return Box">Return Box</div>
                   </a>
                 </li>
-                <li class="menu-item {{Request::is(['cargo-master/shipments','cargo-master/shipments/*']) ? 'active' : ''}}">
+                <li class="menu-item {{Request::is(['cargo-master/shipments','cargo-master/shipments/update-status/*']) ? 'active' : ''}}">
                   <a href="{{ url('cargo-master/shipments') }}" class="menu-link">
                     <div data-i18n="Shipments">Shipments</div>
                   </a>
                 </li>
-                <li class="menu-item {{Request::is(['cargo-master/track-shipment']) ? 'active' : ''}}">
+                <li class="menu-item {{Request::is(['cargo-master/track-shipment', 'cargo-master/shipments/search']) ? 'active' : ''}}">
                   <a href="{{ url('cargo-master/track-shipment') }}" class="menu-link">
                     <div data-i18n="Track Shipment">Track Shipment</div>
                   </a>
@@ -152,31 +151,12 @@
               </ul>
             @endcan
             @can('role-menu-access')
-            <!-- <li class="menu-item {{Request::is(['roles','roles/*']) ? 'active' : ''}}">
-              <a href="{{ url('roles') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
-                <div data-i18n="Role Settings">Role Settings</div>
+            <li class="menu-item {{Request::is(['categories','categories/*']) ? 'active' : ''}}">
+              <a href="{{ url('/categories') }}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                <div data-i18n="Categories">Categories</div>
               </a>
-            </li> -->
-            <!-- <li class="menu-item {{Request::is(['permissions/*','roles/*']) ? 'active open' : ''}}">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-settings"></i>
-                <div data-i18n="Role & Permissions">Role & Permissions</div>
-              </a>
-
-              <ul class="menu-sub">
-                <li class="menu-item {{Request::is(['roles','roles/*']) ? 'active' : ''}}">
-                  <a href="{{ url('roles') }}" class="menu-link">
-                    <div data-i18n="Role">Role</div>
-                  </a>
-                </li>
-                <li class="menu-item {{Request::is(['permissions','permissions/*']) ? 'active' : ''}}">
-                  <a href="{{ url('permissions') }}" class="menu-link">
-                    <div data-i18n="Permissions">Permissions</div>
-                  </a>
-                </li>
-              </ul>
-            </li> -->
+            </li>
             @endcan
 
           </ul>

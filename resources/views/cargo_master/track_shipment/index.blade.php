@@ -24,7 +24,7 @@
             <div class="row g-3">
                 <div class="col-md-4">
                     <label class="form-label" for="multicol-username">Invoice <span class="text-danger">*</span></label>
-                    <input type="text"    name="invoice_number" id="multicol-username" class="form-control" Placeholder="Add Invoice No"/>
+                    <input type="text"    name="invoice_number" id="multicol-username" class="form-control" @if(isset($shipment) ) value="{{ $shipment->invoice_no }}" @endif Placeholder="Add Invoice No"/>
                 </div>
                 
                 <div class="col-md-4 pt-4">
@@ -58,18 +58,41 @@
                 <td>{{ $shipment->cosignee_name }}</td>
                 <td>{{ date('d/m/Y', strtotime($shipment->starting_date)) }}</td>
                 <td>{{ date('d/m/Y', strtotime($shipment->due_date)) }}</td>
-                <td>
-                    
-                    <select name="shipmentStatus" class="form-control updateStatus bg-light">
-                        <option class="bg-light" value="{{ $shipment->shipment_status }}" selected>{{ $shipment->shipment_status }}</option>
-                        
-                    </select>
+                <td class="text-center bg-primary text-white"> {{ $shipment->shipment_status }}
                 </td>
             </tr>
+            
         </tbody>
     </table>
     </div>
 </div>
+
+<div class="card mt-3">
+    <div class="card-header">
+    <table class="table border-top">
+        <thead class="bg-light">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Remarks</th>
+                <th class="text-center" style="width: 25%;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($shipment->shipmentStatuses as $status)
+            <tr>
+                <td >{{  date('d/m/Y', strtotime($status->dated )) }}</td>
+                <td >{{  date('h:i:s', strtotime($status->dated )) }}</td>
+                <td>{{ $status->remarks }}</td>
+                <td class="text-center bg-primary text-white"> <b> {{ $status->status }} </b>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    </div>
+</div>
+
 @endif
 @section('script')
 

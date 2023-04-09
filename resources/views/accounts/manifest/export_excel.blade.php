@@ -13,8 +13,8 @@
             @endif
         @endforeach
         </th>
-        <th style="width: 100%;">TOTAL NO. OF PCS</th>
-        <th style="width: 100%;">{{ $totalNoOfPieces }}</th>
+        <th style="width: 100%;">Boxes</th>
+        <th style="width: 100%;">{{ $totalNoOfBoxes }}</th>
     </tr>
     <tr>
         <th>DATE</th>

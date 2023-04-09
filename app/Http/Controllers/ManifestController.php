@@ -53,6 +53,7 @@ class ManifestController extends Controller
                 $boxesTotalWeight += $box->box_weight;
             }
         }
+       
         return view('accounts.manifest.show',compact(['order', 'boxesTotalWeight', 'totalNoOfBoxes','totalNoOfPieces', 'from','to', 'branchId']));
 
     }

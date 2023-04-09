@@ -71,7 +71,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <th colspan="5" style="padding: 20px 0px;">Pcs : {{ $totalNoOfPieces  }}</th>
+                            <th colspan="5" style="padding: 20px 0px;">Boxes : {{ $invoice->boxes->count() }}</th>
                             <th colspan="5">Kg : {{ $boxesWeight }}</th>
                         </tr>
                         <tr>
@@ -134,7 +134,7 @@
                             @foreach($invoice->boxes as $key => $box)
                                 @if ($loop->odd)
                                     <tr>
-                                        <td colspan="4" style="background-color:yellow; color:black;">{{ $box->box_name  }}&nbsp; - &nbsp;{{  $box->box_weight .'kg' }}</td>
+                                        <td colspan="4" style="background-color:yellow; color:black;">{{ $box->box_name  }}&nbsp; - &nbsp;{{  $box->box_weight .' kg' }}</td>
                                     
                                     </tr>
                                     @foreach($box->boxes_items as $key => $boxItem)
@@ -170,7 +170,7 @@
                             @foreach($invoice->boxes as $key => $box)
                             @if ($loop->even)
                                     <tr>
-                                        <td colspan="4" style="background-color:yellow; color:black;">{{ $box->box_name  }}&nbsp; - &nbsp;{{  $box->box_weight .'kg' }}</td>
+                                        <td colspan="4" style="background-color:yellow; color:black;">{{ $box->box_name  }}&nbsp; - &nbsp;{{  $box->box_weight .' kg' }}</td>
                                     
                                     </tr>
                                     @foreach($box->boxes_items as $key => $boxItem)

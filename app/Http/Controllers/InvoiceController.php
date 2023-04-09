@@ -46,6 +46,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceRequest $request)
     {
+        //return $request;
         $branchClient = BranchClients::updateOrCreate(
             [
                 'name'        => $request->get('shipper.name'),
@@ -109,17 +110,19 @@ class InvoiceController extends Controller
 
         }
 
-        $boxesWeight = 0;  $boxShipmentCharges = 0;
+        $boxesWeight = 0;  $boxShipmentCharges = 0; ;
         foreach($invoice->boxes as $key => $boxRecord){
 
             $boxesWeight += $boxRecord->box_weight;
             $boxShipmentCharges += $boxRecord->box_charges_as_per_kg;
+           
 
         }
-        $BeforeDiscountAmount = $boxShipmentCharges + $invoice->packing_charges + $invoice->box_charges + $invoice->bill_charges + $invoice->other_charges;
-        $AfterDiscountAmount = $BeforeDiscountAmount - $invoice->discount;
-        $vat_value = ($AfterDiscountAmount / 100);
-        $vat_value *= $invoice->vat;
+       
+        $subtotal = $boxShipmentCharges + $invoice->packing_charges + $invoice->box_charges + $invoice->bill_charges + $invoice->other_charges;
+        $AfterDiscountAmount = $subtotal - $invoice->discount;
+        $vat_value = ($invoice->vat / 100) * $AfterDiscountAmount;
+        //$vat_value *= $invoice->vat;
         $netBill = $AfterDiscountAmount + $vat_value;
 
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
@@ -142,12 +145,13 @@ class InvoiceController extends Controller
 
     public function update(InvoiceRequest $request, $id)
     {
+        return $request->shipper;
         $invoice = Invoice::find($id);
 
         $invoice->update($request->except('box', 'shipper', '_token', '_method'));
 
         $invoice->customer()->update($request->shipper);
-
+    
         $ShipmentWeightChargesLatest = ShipmentWeightCharges::latest()->first();
 
         foreach ($request->box as $key => $boxData) {
@@ -190,21 +194,21 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::with(['invoice_item_details', 'boxes.boxes_items', 'branch_admin', 'customer'])->find($id);
 
-        $totalNoOfPieces = $invoice->invoice_item_details->sum('quantity');
+        // $totalNoOfPieces = $invoice->invoice_item_details->sum('quantity');
         $boxesWeight = $invoice->boxes->sum('box_weight');
         $boxShipmentCharges = $invoice->boxes->sum('box_charges_as_per_kg');
 
-        $BeforeDiscountAmount = $boxShipmentCharges + $invoice->packing_charges + $invoice->box_charges + $invoice->bill_charges + $invoice->other_charges;
-        $AfterDiscountAmount = $BeforeDiscountAmount - $invoice->discount;
-        $vat_value = ($AfterDiscountAmount / 100);
-        $vat_value *= $invoice->vat;
+        $subtotal = $boxShipmentCharges + $invoice->packing_charges + $invoice->box_charges + $invoice->bill_charges + $invoice->other_charges;
+        $AfterDiscountAmount = $subtotal - $invoice->discount;
+        $vat_value = ($invoice->vat / 100) * $AfterDiscountAmount;
+        //$vat_value *= $invoice->vat;
         $netBill = $AfterDiscountAmount + $vat_value;
         $digit = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         $amountString = $digit->format($netBill, 2);
         $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate( 'Invoice # => '.$invoice->shipment_mode_slug.','.'Shipment Date => '.$invoice->starting_date.','.'Consignee => '.$invoice->cosignee_name.','.'Amount =>'.$netBill ) );
         // $pdf = Pdf::loadView('accounts.invoice.pdf', array('qrcode' => $qrcode,'boxesWeight' => $boxesWeight,  'boxShipmentCharges' => $boxShipmentCharges,'amountString' => $amountString, 'invoice' => $invoice, 'totalNoOfPieces' => $totalNoOfPieces,  'vat_value'=>$vat_value, 'netBill' => $netBill ))->setPaper('a4', 'portrait')->save(public_path('invoices/pdf/'.'Invoice_'.$invoice->shipment_mode_slug.'.pdf'));
 
-        $renderHtml = view('accounts.invoice.pdf-new', ['qrcode' => $qrcode,'boxesWeight' => $boxesWeight,  'boxShipmentCharges' => $boxShipmentCharges,'amountString' => $amountString, 'invoice' => $invoice, 'totalNoOfPieces' => $totalNoOfPieces,  'vat_value'=>$vat_value, 'netBill' => $netBill ])->render();
+        $renderHtml = view('accounts.invoice.pdf-new', ['qrcode' => $qrcode,'boxesWeight' => $boxesWeight,  'boxShipmentCharges' => $boxShipmentCharges,'amountString' => $amountString, 'invoice' => $invoice,'vat_value'=>$vat_value, 'netBill' => $netBill ])->render();
 
         $arabic = new Arabic();
         $p = $arabic->arIdentify($renderHtml);

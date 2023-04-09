@@ -86,7 +86,7 @@
             </select>
         </div>
     </div>
-    <div class="col-sm-2 mb-sm-0">
+    <div class="col-sm-2 mb-sm-0 ">
         <label class="form-label" for="multicol-email"></label>
         <button type="button" class="btn btn-primary  searchByName">Select Shipper</button>
     </div>
@@ -161,6 +161,7 @@
                         </select>
                     </div>
                 </td>
+                
             </tr>
             <tr>
                 <td>
@@ -301,25 +302,14 @@
     </div>
 </div>
 
-@php
-    if (isset(session()->getOldInput()['box'])){
-        $boxes = session()->getOldInput()['box'];
-    } elseif(isset($invoice)) {
-        $boxes = $invoice->boxes()->get()->toArray();
-    } else {
-        $boxes = [];
-    }
-@endphp
-
 @if(isset(session()->getOldInput()['box']))
-
     @foreach(session()->getOldInput()['box'] as $key => $box)
         <div class="col-lg-12 my-3">
             <table class="table table-striped table-bordered" width="100%" id="itemsTable">
                 <tr>
                     <th colspan="3">Box {{ $loop->iteration }} </th>
                     <input type="hidden" name="box[{{$key}}][box_name]" value="Box {{$loop->iteration}}">
-                    <input type="hidden" name="box[{{$key}}][box_id]" value="null">
+                    <input type="hidden" name="box[{{$key}}][box_id]" value="{{ Arr::get($box, 'box_id', null) }}">
                     <th colspan="2">
                         <input type="number" step="any" name="box[{{$key}}][box_weight]"
                                class="form-control @error("box.$key.box_weight") invalid @enderror" value="{{ $box['box_weight'] }}" placeholder="Add Box weight"></th>
@@ -469,14 +459,14 @@
                 </td>
                 <td>
                     <label for="note" class="form-label fw-semibold">Packing charge</label>
-                    <input type="number" name="packing_charge" step="any"
-                           value="{{ isset($invoice) ? $invoice->packing_charge : old('packing_charge') }}"
+                    <input type="number" name="packing_charges" step="any"
+                           value="{{ isset($invoice) ? $invoice->packing_charges : old('packing_charges') }}"
                            class="form-control">
                 </td>
                 <td>
                     <label for="note" class="form-label fw-semibold">Bill Charges</label>
-                    <input type="number" name="bill_charge" step="any"
-                           value="{{ isset($invoice) ? $invoice->bill_charge : old('bill_charge') }}"
+                    <input type="number" name="bill_charges" step="any"
+                           value="{{ isset($invoice) ? $invoice->bill_charges : old('bill_charges') }}"
                            class="form-control">
                 </td>
                 <td>

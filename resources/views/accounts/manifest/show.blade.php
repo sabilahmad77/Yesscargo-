@@ -56,8 +56,8 @@
                                 @endif
                             @endforeach
                             </th>
-                            <th>TOTAL NO. OF PCS</th>
-                            <th>{{ $totalNoOfPieces }}</th>
+                            <th>Boxes: </th>
+                            <th>{{ $totalNoOfBoxes }}</th>
                         </tr>
                         <tr>
                             <th>DATE</th>

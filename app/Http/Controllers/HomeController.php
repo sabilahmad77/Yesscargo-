@@ -35,8 +35,26 @@ class HomeController extends Controller
             //$branchId = Branch::where('users_id',Auth::user()->id)->first();
             $data['Invetories'] = Inventory::all();
 
-            $data['Income'] =  Invoice::with('invoice_item_details')->get();
-
+            //$data['Income'] =  Invoice::with('invoice_item_details')->get();
+            $data['Income'] =  Invoice::with('boxes')->get();    
+            $boxCharges = 0;  $totalIncome = 0;
+            foreach( $data['Income'] as $key => $record ){
+                foreach( $record->boxes as $key => $box ){
+                    $boxCharges = $box->box_charges_as_per_kg; 
+                  //  echo 'box cahrges:'. $boxCharges .'<br>';
+                    $subtotal = $boxCharges + $record->packing_charges + $record->box_charges + $record->bill_charges + $record->other_charges;
+                   // echo 'subtotal:'.$subtotal .'<br>';
+                    $AfterDiscountAmount = $subtotal - $record->discount;
+                   // echo 'AfterDiscountAmount:'.$AfterDiscountAmount .'<br>';
+                    $vat_value = ($record->vat / 100) * $AfterDiscountAmount ;
+                   // echo 'vat_value:'.$vat_value .'<br>';
+                    $netBill = $AfterDiscountAmount + $vat_value;
+                   // echo 'net bill:'. $netBill .'<br><br><br>';
+                    $totalIncome += $netBill;
+                }
+                
+            }
+            $data['TotalIncome'] = (float) $totalIncome;
             return view('welcome')->with($data);
        }elseif(Auth::user()->hasRole('Branch-Admin')){
 
@@ -49,8 +67,25 @@ class HomeController extends Controller
             $branchClients = BranchClients::where('branches_id', $branchId->id)->get(); 
             $data['branchClientsCount'] = $branchClients->count();
             
-            $data['BranchIncome'] =  Invoice::with('boxes')->where('branch_id', $branchId->id)->get();
+            $data['BranchIncome'] =  Invoice::with('boxes')->where('branch_id', $branchId->id)->get();    
+            $boxCharges = 0;  $totalIncome = 0;
+            foreach( $data['BranchIncome'] as $key => $record ){
+                foreach( $record->boxes as $key => $box ){
+                    $boxCharges = $box->box_charges_as_per_kg; 
+                  //  echo 'box cahrges:'. $boxCharges .'<br>';
+                    $subtotal = $boxCharges + $record->packing_charges + $record->box_charges + $record->bill_charges + $record->other_charges;
+                   // echo 'subtotal:'.$subtotal .'<br>';
+                    $AfterDiscountAmount = $subtotal - $record->discount;
+                   // echo 'AfterDiscountAmount:'.$AfterDiscountAmount .'<br>';
+                    $vat_value = ($record->vat / 100) * $AfterDiscountAmount ;
+                   // echo 'vat_value:'.$vat_value .'<br>';
+                    $netBill = $AfterDiscountAmount + $vat_value;
+                   // echo 'net bill:'. $netBill .'<br><br><br>';
+                    $totalIncome += $netBill;
+                }
                 
+            }
+            $data['BranchTotalIncome'] = $totalIncome;
             return view('welcome')->with($data);
        }
       

@@ -3,7 +3,8 @@
 @section('content')
 <div class="card mb-4">
 <h5 class="card-header">Add New Client</h5>
-<form action="{{ url('/clients') }}" method="POST"class="card-body">
+<form action="{{ url('/clients/'.$userData->id) }}" method="POST"class="card-body">
+    @method('PATCH')
     @csrf
     <div class="row g-3">
     <div class="col-md-12">
@@ -44,19 +45,23 @@
                 
             </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <label class="form-label" for="multicol-email">Country  <span class="text-danger">*</span></label>
+        <input type="text" name="country" id="multicol-email" class="form-control" value="{{ $userData->country }}"/>
+    </div>
+    <div class="col-md-3">
         <label class="form-label" for="multicol-email">City</label>
             <div class="input-group input-group-merge">
                 <input type="text" name="city" id="multicol-email" class="form-control" value="{{ $userData->city }}"/>
             </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label class="form-label" for="multicol-email">Pincode</label>
             <div class="input-group input-group-merge">
                 <input type="text" name="pinCode" id="multicol-email" class="form-control" value="{{ $userData->pincode }}"/>
             </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         @if( Auth::user()->hasRole('Admin')  )
                 <label class="form-label" for="multicol-email">Branch</label>
                 <select name="branch_id" class="form-control">

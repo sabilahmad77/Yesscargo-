@@ -22,7 +22,7 @@
         <th>Due Date</th>
         <th>Shipper</th>
         <th>Consignee</th>
-        <th>Items Count</th>
+       
         <th>Amount (SAR)</th>
         </tr>
     </thead>
@@ -38,22 +38,25 @@
                 <p class="mb-0">{{ $rec->cosignee_name }}</p>
                 <small>{{ $rec->cosignee_address }}</small>
             </td>
-            <td>{{  $rec->invoice_item_details_count }}</td>
-            <td>
-                @php 
-                    $totalPrice = 0; 
-                    foreach($rec->invoice_item_details as $item){
-                        $totalPrice += $item->price;
-                    }
-                    $subTotal = $totalPrice + $rec->packing_charges + $rec->box_charges + $rec->bill_charges + $rec->other_charges - $rec->discount;
-                    
-                    $VatInPercent = $rec->vat;
-                    $vatPercentAmount = ($subTotal / 100) * $rec->vat;
-                    $InvoiceAmount = $vatPercentAmount + $subTotal;
-                    $InvoicesAmountSum += $InvoiceAmount;
-                   // $InvoicesSum =  $InvoicesSum + $InvoiceAmount;
+            @php    
+               
+               $boxCharges = 0;
                 @endphp
-                    {{ number_format($InvoiceAmount,2)  }}
+
+                @foreach( $rec->boxes as $key => $box )
+                    @php 
+                        $boxCharges += $box->box_charges_as_per_kg; 
+                    
+                    $subtotal = $boxCharges + $rec->packing_charges + $rec->box_charges + $rec->bill_charges + $rec->other_charges;
+                    $AfterDiscountAmount = $subtotal - $rec->discount;
+                    $vat_value = ($rec->vat / 100) * $AfterDiscountAmount;
+                    $netBill = $AfterDiscountAmount + $vat_value;
+                    $InvoicesAmountSum += $netBill;
+                    @endphp
+
+            @endforeach
+            <td>
+               {{ number_format( $netBill, 2) }}
             </td>
         </tr>
         @endforeach
@@ -65,7 +68,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+           
             <td class="font-bold text-success"> <b> {{ 'SAR '. $InvoicesAmountSum }} </b></td>
         </tr>
     </tfoot>
@@ -83,20 +86,20 @@ $(document).ready(function() {
             {
                 extend: 'copyHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                    columns: [ 0, 1, 2, 3,4,5 ]
                 }
             },
         
             {
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                    columns: [ 0, 1, 2, 3,4,5 ]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3,4,5,6 ]
+                    columns: [ 0, 1, 2, 3,4,5 ]
                 }
             },
             'colvis'

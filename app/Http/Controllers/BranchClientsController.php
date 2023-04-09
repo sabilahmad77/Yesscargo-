@@ -48,6 +48,7 @@ class BranchClientsController extends Controller
             'name' => 'required',
             'phone1' => 'required',
             'branch_id' => 'required',
+            'country'  => 'required',
         ],[
             'name.required' => 'Client name field is required!',
             'phone1.min' => 'Phone field is required!',
@@ -101,6 +102,7 @@ class BranchClientsController extends Controller
     
     public function update(Request $request, $id)
     {
+        //return $request;
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required',
@@ -126,6 +128,7 @@ class BranchClientsController extends Controller
         $branchClient->phone1 = $request->phone1;
         $branchClient->phone2 = $request->phone2;
         $branchClient->address = $request->address;
+        $branchClient->country = $request->country;
         $branchClient->save();
         return redirect('clients')->with('success', 'Record updated successfully!');
     }

@@ -132,22 +132,8 @@
                   <p class="mb-0">Income</p>
                   <span class="badge bg-label-success p-1 rounded"><i class="ti ti-link ti-xs"></i></span>
                 </div>
-                @foreach($Income as $order)
-                  @php 
-                      $totalPrice = 0;
-                      foreach($order->invoice_item_details as $item){
-                          $totalPrice += $item->price;
-                      }
-                      $subTotal = $totalPrice + $order->packing_charges + $order->box_charges + $order->bill_charges + $order->other_charges - $order->discount;
-                      
-                      $VatInPercent = $order->vat;
-                      $vatPercentAmount = ($subTotal / 100) * $order->vat;
-                      $InvoiceAmount = $vatPercentAmount + $subTotal;
-                     // $InvoiceAmount += $InvoiceAmount;
-                      
-                  @endphp
-                @endforeach
-                <h5 class="mb-0 pt-5 text-nowrap ms-lg-n3 ms-xl-0">{{ 'SAR '. number_format(@$InvoiceAmount,2) }}</h5>
+               
+                <h5 class="mb-0 pt-5 text-nowrap ms-lg-n3 ms-xl-0">{{ 'SAR '. number_format(@$TotalIncome,2) }}</h5>
               </div>
             </div>
             <div class="d-flex align-items-center mt-4">
@@ -316,24 +302,8 @@
                 <p class="mb-0">Income</p>
                 <span class="badge bg-label-success p-1 rounded"><i class="ti ti-link ti-xs"></i></span>
               </div>
-              @php  $totalPrice = 0; $InvoiceAmount = 0; @endphp
-              @foreach($BranchIncome as $order)
-                @php 
-                    
-                    foreach($order->boxes as $item){
-                        $totalPrice += $item->box_charges_as_per_kg;
-
-                    
-                    $subTotal = $totalPrice + $order->packing_charges + $order->box_charges + $order->bill_charges + $order->other_charges - $order->discount;
-                    
-                    $VatInPercent = $order->vat;
-                    $vatPercentAmount = ($subTotal / 100) * $order->vat;
-                    $InvoiceAmount = $vatPercentAmount + $subTotal;
-                  }
-                    
-                @endphp
-              @endforeach
-              <h5 class="mb-0 pt-5 text-nowrap ms-lg-n3 ms-xl-0">{{ 'SAR '. number_format(@$InvoiceAmount,2) }}</h5>
+              
+              <h5 class="mb-0 pt-5 text-nowrap ms-lg-n3 ms-xl-0">{{ 'SAR '. number_format(@$BranchTotalIncome,2) }}</h5>
               <!-- <small class="text-muted">12,749</small> -->
             </div>
           </div>

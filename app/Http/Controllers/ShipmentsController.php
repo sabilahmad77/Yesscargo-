@@ -31,7 +31,7 @@ class ShipmentsController extends Controller
     }
 
     public function searchShipment(Request $request){
-   
+        
         $validate = Validator::make($request->all(), [
             'invoice_number' => 'required',
 
@@ -40,7 +40,7 @@ class ShipmentsController extends Controller
          
         ]);
         if($validate->fails()){
-            return back()->withErrors($validate->errors())->withInput();
+            return redirect('cargo-master/track-shipment')->withErrors($validate->errors())->withInput();
         }
         $q = Invoice::query();
 
@@ -53,7 +53,7 @@ class ShipmentsController extends Controller
         {
             $q->orwhere('cosignee_phone1',$request->consignee_phone);
         }
-        $data['shipment'] = $q->first();
+        $data['shipment'] = $q->with('shipmentStatuses')->first();
         $data['invoice_number'] = $request->filled('invoice_number');
         $data['consignee_phone'] = $request->filled('consignee_phone');
         return view('cargo_master.track_shipment.index')->with($data);
@@ -66,8 +66,8 @@ class ShipmentsController extends Controller
     }
 
     public function shipmentUpdateStatus(Request $request){
-
-        $now = Carbon::now()->format('Y-m-d');
+        // 123;
+        $now = Carbon::now();
         $statusUpdate =DB::table('shipment_status')->insert(
             ['invoice_id' => $request->invoice_number, 'shipment_mode_slug'=> $request->shipment_mode_slug, 'dated' => Carbon::now()->toDateTimeString() , 'remarks' => $request->remarks , 'status' => $request->shipmentStatus]
             );

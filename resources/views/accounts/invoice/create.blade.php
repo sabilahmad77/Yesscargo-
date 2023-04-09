@@ -147,12 +147,20 @@
                     if (response == '') {
                         alert('No Record Found! Please Add New Details!');
                     }
+                    //console.log(response);
                     $('#clientName').val(response.name);
                     $('#clientEmail').val(response.email);
                     $('#phone1').val(response.phone1);
                     $('#phone2').val(response.phone2);
                     $('#pincode').val(response.pincode);
-                    $('#country').val(response.country);
+
+                    //console.log(response.country);
+                    // $('#shipperCountryOptionTd').addClass('d-none');
+                    // $('#shipperCountryInputTd').removeClass('d-none')
+                    // $("#countryInput").val(response.country);
+
+                   
+                    $('#pincode').val(response.pincode);
                     $('#city').val(response.city);
                     $('#address').val(response.address);
                 }

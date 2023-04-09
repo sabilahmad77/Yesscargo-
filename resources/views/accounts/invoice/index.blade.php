@@ -43,12 +43,9 @@
             @foreach( $record->boxes as $key => $box )
                 @php 
                     $boxCharges += $box->box_charges_as_per_kg; 
-                
-
-                $BeforeDiscountAmount = $boxCharges + $record->packing_charges + $record->box_charges + $record->bill_charges + $record->other_charges;
-                $AfterDiscountAmount = $BeforeDiscountAmount - $record->discount;
-                $vat_value = ($AfterDiscountAmount / 100);
-                $vat_value *= $record->vat;
+                $subtotal = $boxCharges + $record->packing_charges + $record->box_charges + $record->bill_charges + $record->other_charges;
+                $AfterDiscountAmount = $subtotal - $record->discount;
+                $vat_value = ($record->vat / 100) * $AfterDiscountAmount;
                 $netBill = $AfterDiscountAmount + $vat_value;
                 @endphp
 

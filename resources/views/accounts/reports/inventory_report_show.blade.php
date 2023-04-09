@@ -41,7 +41,7 @@
         <td>{{ $invetory->paid_to }}</td>
         <td>{{ $invetory->category->name }}</td>
         <!-- <td>{{ $invetory->branch->branch_name }}</td> -->
-        <td>{{ $invetory->created_at->format(d/m/Y) }}</td>
+        <td>{{ $invetory->created_at->format('d/m/Y') }}</td>
        
         </tr>
         @endforeach

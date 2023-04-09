@@ -40,9 +40,9 @@
             </div>
     </div>
     <div class="col-md-3">
-        <label class="form-label" for="multicol-email">Country</label>
+        <label class="form-label" for="multicol-email">Country  <span class="text-danger">*</span></label>
             <select class="form-control searchable" id="country" name="country">
-                <option value=""> --Select Country--</option>
+                
                 @foreach(\App\Models\Country::all() as $country)
                     <option value="{{ $country->name }}">
                            
@@ -50,6 +50,9 @@
                     </option>
                 @endforeach
             </select>
+            @error('country')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
     </div>
     <div class="col-md-3">
         <label class="form-label" for="multicol-email">City</label>
@@ -69,7 +72,7 @@
                 <select name="branch_id" class="form-control searchable">
                         @foreach($branches as $branch)
                         @if($loop->first)
-                            <option>--Select Branch--</option>
+                            
                             @endif
                             <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                         @endforeach
